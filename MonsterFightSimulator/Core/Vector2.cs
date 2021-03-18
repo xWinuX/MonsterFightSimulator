@@ -6,15 +6,21 @@ using System.Threading.Tasks;
 
 namespace MonsterFightSimulator.Core
 {
-    public class Vector2<T>
+    public class Vector2Int
     {
-        public T X { get; set; }
-        public T Y { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
-        public Vector2(T x, T y)
+        public Vector2Int(int x, int y)
         {
             X = x;
             Y = y;
+        }
+
+        public void Add (Vector2Int add)
+        {
+            X += add.X;
+            Y += add.Y;
         }
     }
 }

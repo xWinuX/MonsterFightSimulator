@@ -8,8 +8,8 @@ using MonsterFightSimulator.Core;
 
 namespace MonsterFightSimulator.Rendering
 {
-    interface IRenderable
+    public interface IRenderable
     {
-        void Render(RenderSurface renderSurface, Vector2<float> position);
+        string[] Texture { get; set; }
     }
 }
