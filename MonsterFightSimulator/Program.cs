@@ -2,96 +2,64 @@
 using System.Diagnostics;
 using MonsterFightSimulator.Core;
 using MonsterFightSimulator.Rendering;
-
+using MonsterFightSimulator.Engine;
+using System.Collections.Generic;
+using MonsterFightSimulator.Game.Actors;
+using MonsterFightSimulator.Game;
 
 namespace MonsterFightSimulator
 {
     class Program
     {
+        public static RenderSurface ApplicationSurface = new RenderSurface(new Vector2Int(100, 20));
+        public static RenderSurface CurrentSurface = ApplicationSurface;
+
+        static void Setup()
+        {
+            Console.CursorVisible = false;
+        }
 
         static void Main(string[] args)
         {
-            Stopwatch elapsedTime = new Stopwatch();
-            elapsedTime.Start();
+            Setup();
 
-            RenderSurface applicationSurface = new RenderSurface(new Vector2Int(100, 20));
+            LayerItemList layerItemList = new LayerItemList();
 
-            string[][] sprite = new string[2][];
+            Stopwatch elapsedTime = Stopwatch.StartNew();
+            double currentTime = elapsedTime.Elapsed.TotalSeconds;
 
-            sprite[0] = new string[3] { " @ " ,
-                                        "/0\\",
-                                        "/ \\"  };
+            ActorTest actor = new ActorTest();
 
-            sprite[1] = new string[3] { " @ " ,
-                                        "\\0/",
-                                        " X"  };
+            LayerItemContainer layerItemContainer00 = new LayerItemContainer();
+            layerItemContainer00.Add(actor);
 
-
-            Sprite test = new Sprite(sprite, 0.125f);
-
-            Console.Write(test.Texture);
-            double currentTime = elapsedTime.Elapsed.TotalMilliseconds;
-            bool quit = false;
-
-            Console.CursorVisible = false;
-
-            Vector2Int playerPosition = new Vector2Int(0, 0);
-            Vector2Int input = new Vector2Int(0, 0);
+            layerItemList.Add(0, actor);
+            layerItemList.Add(1, new LayerSprite(SpriteDatabase.SprTest2, new Vector2Int(10,10)));
 
             // Game Loop
+            bool quit = false;
             while (!quit)
             {
-                // Reset Console Cursor
-                Console.SetCursorPosition(0, 0);
-
                 // Calculate deltatime
-                double newTime = elapsedTime.Elapsed.TotalMilliseconds;
+                double newTime = elapsedTime.Elapsed.TotalSeconds;
                 float deltaTime = Convert.ToSingle(newTime - currentTime);
                 currentTime = newTime;
 
-                // Update
-                test.Update(deltaTime);
-                
-                // Input
-                if (Console.KeyAvailable)
-                {
-                    switch (Console.ReadKey(true).Key)
-                    {
-                        case ConsoleKey.D:
-                            input.X = 1;
-                            break;
-                        case ConsoleKey.W:
-                            input.Y = -1;
-                            break;
-                        case ConsoleKey.A:
-                            input.X = -1;
-                            break;
-                        case ConsoleKey.S:
-                            input.Y = 1;
-                            break;
-                    }
-                }
-                else
-                {
-                    input.X = 0;
-                    input.Y = 0;
-                }
+                // Reset Console Cursor
+                Console.SetCursorPosition(0, 0);
 
-                playerPosition.Add(input);
-                
+                // Clear Application Surface
+                ApplicationSurface.Clear();
+
+                layerItemList.Update(deltaTime);
+
+                layerItemList.Render();
+
                 // Render Application Surface
-                foreach (string line in applicationSurface.Texture)
+                foreach (string line in ApplicationSurface.Texture)
                 {
                     Console.WriteLine(line);
                 }
-
-                // TESTING: (rendering sprites)
-                applicationSurface.Clear();
-                applicationSurface.RenderOn(new Vector2Int(0, 0), test);
-                applicationSurface.RenderOn(playerPosition, test);
-
-
-
             }
         }
     }

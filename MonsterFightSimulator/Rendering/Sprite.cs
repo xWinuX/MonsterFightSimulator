@@ -1,44 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MonsterFightSimulator.Core;
 
 namespace MonsterFightSimulator.Rendering
 {
     public class Sprite : IRenderable
     {
-        public Sprite(string[][] frames, float frameSpeed)
+        public Sprite(SpriteData spriteData)
         {
-            _frames = frames;
-            FrameSpeed = frameSpeed;
-
-            FrameCount = frames.GetLength(0);
-
-            Texture  = FrameCurrent;
+            _spriteData = spriteData;
         }
 
+        public string[] Texture => _spriteData.Frames[Convert.ToInt32(Math.Floor(FrameIndex))];
 
-        public string[] Texture { get; set; }
-
-        public float FrameSpeed { get; set; }
-        public int FrameCount { get; private set; }
-        public string[] FrameCurrent => _frames[Convert.ToInt32(MathF.Floor(_frameIndex))];
-        public float FrameIndex 
+        public float FrameIndex
         {
             get => _frameIndex;
-            set => _frameIndex = MyMathF.Wrap(value, 0, FrameCount);
+            set => _frameIndex = MyMathF.Wrap(value, 0, _spriteData.FrameCount);
         }
+        private float _frameIndex = 0; // Private member for proprty
 
-        private string[][] _frames;
-        private float _frameIndex = 0;
-
-
-        public void Update(float deltaTime)
+        private readonly SpriteData _spriteData;
+ 
+        public void Update(float deltaTime, float speedModifier = 1)
         {
-            FrameIndex += FrameSpeed * deltaTime;
-            Texture = FrameCurrent;
+            FrameIndex += (_spriteData.FrameSpeed * speedModifier) * deltaTime;
         }
     }
 }
