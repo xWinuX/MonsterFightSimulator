@@ -11,7 +11,7 @@ namespace MonsterFightSimulator.Engine
 
         public virtual void Start() {}
 
-        public virtual void Update(float deltaTime) {}
+        public virtual void Update(float deltaTime) { if (Sprite != null) { Sprite.Update(deltaTime); } }
 
         public virtual void Render() { RenderSelf(); }
 

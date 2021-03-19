@@ -11,6 +11,8 @@ namespace MonsterFightSimulator.Game.Actors
 
         public override void Update(float deltaTime)
         {
+            base.Update(deltaTime);
+
             Vector2Int input = new Vector2Int(0, 0);
             // Input
             if (Console.KeyAvailable)
