@@ -14,7 +14,8 @@ namespace MonsterFightSimulator.Game
             3f
         );        
         public static SpriteData SprTest2 = new SpriteData(
-            new string[1][] { new string[1] { "MMMM" } },
+            new string[1][] { new string[2] {   "MMMMMMMMMM",
+                                                "MMMMMMMMMM"} },
             1f
         );
         

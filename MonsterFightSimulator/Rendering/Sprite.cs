@@ -5,12 +5,11 @@ namespace MonsterFightSimulator.Rendering
 {
     public class Sprite : IRenderable
     {
-        public Sprite(SpriteData spriteData)
-        {
-            _spriteData = spriteData;
-        }
+        public Sprite(SpriteData spriteData) {_spriteData = spriteData;}
 
         public string[] Texture => _spriteData.Frames[Convert.ToInt32(Math.Floor(FrameIndex))];
+
+        public float FrameSpeed => _spriteData.FrameSpeed;
 
         public float FrameIndex
         {
@@ -20,10 +19,5 @@ namespace MonsterFightSimulator.Rendering
         private float _frameIndex = 0; // Private member for proprty
 
         private readonly SpriteData _spriteData;
- 
-        public void Update(float deltaTime, float speedModifier = 1)
-        {
-            FrameIndex += (_spriteData.FrameSpeed * speedModifier) * deltaTime;
-        }
     }
 }

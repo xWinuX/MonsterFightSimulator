@@ -17,21 +17,15 @@ namespace MonsterFightSimulator.Engine
         {
             foreach(KeyValuePair<int, List<ILayerItem>> layer in _list)
             {
-                foreach(ILayerItem layerItem in layer.Value)
-                {
-                    layerItem.Update(deltaTime);
-                }
+                foreach(ILayerItem layerItem in layer.Value) { layerItem.Update(deltaTime); }
             }
-        }        
+        }
         
         public void Render()
         {
             foreach(KeyValuePair<int, List<ILayerItem>> layer in _list)
             {
-                foreach(ILayerItem layerItem in layer.Value)
-                {
-                    layerItem.Render();
-                }
+                foreach(ILayerItem layerItem in layer.Value) { layerItem.Render(); }
             }
         }
     }

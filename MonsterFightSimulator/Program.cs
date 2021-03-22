@@ -3,7 +3,6 @@ using System.Diagnostics;
 using MonsterFightSimulator.Core;
 using MonsterFightSimulator.Rendering;
 using MonsterFightSimulator.Engine;
-using System.Collections.Generic;
 using MonsterFightSimulator.Game.Actors;
 using MonsterFightSimulator.Game;
 
@@ -19,10 +18,14 @@ namespace MonsterFightSimulator
         {
             ActorTest actor = new ActorTest();
 
+            ActorTextBox textbox = new ActorTextBox();
+            textbox.Position = new Vector2Int(5, 5);
+
             LayerItemContainer layerItemContainer00 = new LayerItemContainer();
             layerItemContainer00.Add(actor);
+            layerItemContainer00.Add(textbox);
 
-            LayerItemList.Add(0, actor);
+            LayerItemList.Add(0, layerItemContainer00);
             LayerItemList.Add(1, new LayerSprite(SpriteDatabase.SprTest2, new Vector2Int(10, 10)));
         }
 

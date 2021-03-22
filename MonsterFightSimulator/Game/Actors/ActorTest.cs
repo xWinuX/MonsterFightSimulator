@@ -7,13 +7,14 @@ namespace MonsterFightSimulator.Game.Actors
 {
     class ActorTest : Actor
     {
-        public override Sprite Sprite { get; set; } = new Sprite(SpriteDatabase.SprTest);
+        public override SpriteInstance SpriteInstance { get; set; } = new SpriteInstance(SpriteDatabase.SprTest);
 
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
 
             Vector2Int input = new Vector2Int(0, 0);
+
             // Input
             if (Console.KeyAvailable)
             {
@@ -36,5 +37,13 @@ namespace MonsterFightSimulator.Game.Actors
 
             Position.Add(input);
         }
+        public override void Render()
+        {
+            base.Render();
+
+            RenderSpriteAt(new Vector2Int(Position.X+10, Position.Y), SpriteDatabase.SprTest, SpriteInstance.FrameIndex);
+        }
     }
+
+
 }

@@ -9,8 +9,8 @@
             FrameCount  = frames.GetLength(0);
         }
 
-        public float FrameSpeed { get; private set; } // Speed of animation (images per second)
-        public int FrameCount { get; private set; } // Number of frames
+        public float FrameSpeed { get; private set; }
+        public int FrameCount { get; private set; }
         public string[][] Frames { get; private set; }
     }
 }
