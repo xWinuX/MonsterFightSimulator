@@ -18,8 +18,10 @@ namespace MonsterFightSimulator
         {
             ActorTest actor = new ActorTest();
 
-            ActorTextBox textbox = new ActorTextBox();
-            textbox.Position = new Vector2Int(5, 5);
+            ActorTextBox textbox = new ActorTextBox
+            {
+                Position = new Vector2Int(5, 5)
+            };
 
             LayerItemContainer layerItemContainer00 = new LayerItemContainer();
             layerItemContainer00.Add(actor);
@@ -47,7 +49,7 @@ namespace MonsterFightSimulator
             {
                 // Calculate deltatime
                 double newTime = elapsedTime.Elapsed.TotalSeconds;
-                float deltaTime = Convert.ToSingle(newTime - currentTime);
+                float deltaTime = (float)(newTime - currentTime);
                 currentTime = newTime;
 
                 // Updating

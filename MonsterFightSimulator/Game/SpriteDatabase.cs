@@ -4,7 +4,7 @@ namespace MonsterFightSimulator.Game
 {
     public class SpriteDatabase
     {
-        public static SpriteData SprTest = new SpriteData(
+        public static readonly SpriteData SprTest = new SpriteData(
             new string[2][] {   new string[2] {     "aa",
                                                     "aa"},
 
@@ -13,7 +13,7 @@ namespace MonsterFightSimulator.Game
             },
             3f
         );        
-        public static SpriteData SprTest2 = new SpriteData(
+        public static readonly SpriteData SprTest2 = new SpriteData(
             new string[1][] { new string[2] {   "MMMMMMMMMM",
                                                 "MMMMMMMMMM"} },
             1f

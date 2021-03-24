@@ -22,7 +22,7 @@ namespace MonsterFightSimulator.Engine
         public void RenderAt(Vector2Int position, float frameIndex) 
         {
             SpeedModifier = 0f;
-            _sprite.FrameIndex = Convert.ToSingle(frameIndex);
+            _sprite.FrameIndex = (float)frameIndex;
             Program.CurrentSurface.RenderOn(position, _sprite); 
         }            
 

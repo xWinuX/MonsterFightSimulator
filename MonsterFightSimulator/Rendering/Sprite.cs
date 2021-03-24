@@ -7,7 +7,7 @@ namespace MonsterFightSimulator.Rendering
     {
         public Sprite(SpriteData spriteData) {_spriteData = spriteData;}
 
-        public string[] Texture => _spriteData.Frames[Convert.ToInt32(Math.Floor(FrameIndex))];
+        public string[] Texture => _spriteData.Frames[(int)Math.Floor(FrameIndex)];
 
         public float FrameSpeed => _spriteData.FrameSpeed;
 

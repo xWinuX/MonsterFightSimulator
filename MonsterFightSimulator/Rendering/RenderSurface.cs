@@ -13,7 +13,7 @@ namespace MonsterFightSimulator.Rendering
             Clear();
         }
 
-        private const char _defaultWhitespaceCharacter = '-';
+        private const char _defaultWhitespaceCharacter = ' ';
 
         public string[] Texture { get; private set; }
 

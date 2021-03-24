@@ -1,4 +1,5 @@
-﻿using MonsterFightSimulator.Core;
+﻿using System;
+using MonsterFightSimulator.Core;
 using MonsterFightSimulator.Rendering;
 
 namespace MonsterFightSimulator.Engine
@@ -20,5 +21,12 @@ namespace MonsterFightSimulator.Engine
         public static void RenderSpriteAt(Vector2Int position, SpriteData spriteData) { new SpriteInstance(spriteData).RenderAt(position); }
         public static void RenderSpriteAt(Vector2Int position, SpriteData spriteData, float frameIndex) { new SpriteInstance(spriteData).RenderAt(position, frameIndex); }
         public static void RenderStringAt(Vector2Int position, string[] texture) { Program.CurrentSurface.RenderOn(position, new SimpleTexture(texture)); }
+
+        public static bool InputDown(ConsoleKey key)
+        {
+            if (Console.KeyAvailable) { return Console.ReadKey(true).Key == key; }
+
+            return false;
+        }
     }
 }
