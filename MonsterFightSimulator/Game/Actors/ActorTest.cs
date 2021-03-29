@@ -1,6 +1,6 @@
-﻿using MonsterFightSimulator.Core;
-using MonsterFightSimulator.Engine;
-using MonsterFightSimulator.Rendering;
+﻿using MonsterFightSimulator.Engine;
+using MonsterFightSimulator.Engine.Core;
+
 using System;
 
 namespace MonsterFightSimulator.Game.Actors
@@ -16,24 +16,10 @@ namespace MonsterFightSimulator.Game.Actors
             Vector2Int input = new Vector2Int(0, 0);
 
             // Input
-            if (Console.KeyAvailable)
-            {
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.D:
-                        input.X = 1;
-                        break;
-                    case ConsoleKey.W:
-                        input.Y = -1;
-                        break;
-                    case ConsoleKey.A:
-                        input.X = -1;
-                        break;
-                    case ConsoleKey.S:
-                        input.Y = 1;
-                        break;
-                }
-            }
+            if (InputDown(ConsoleKey.D)) { input.X = 1; }
+            if (InputDown(ConsoleKey.W)) { input.Y = -1; }
+            if (InputDown(ConsoleKey.A)) { input.X = -1; }
+            if (InputDown(ConsoleKey.S)) { input.Y = 1; }
 
             Position.Add(input);
         }

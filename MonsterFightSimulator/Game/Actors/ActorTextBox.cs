@@ -2,7 +2,7 @@
 using System.Text;
 using System.Linq;
 
-using MonsterFightSimulator.Core;
+using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine;
 
 namespace MonsterFightSimulator.Game.Actors
@@ -12,7 +12,6 @@ namespace MonsterFightSimulator.Game.Actors
         public ActorTextBox() { Start(); }
 
         public string[][] Text { get; set; } = new string[3][] { new string[3] { "aaaaaaaa", "aaaaaa", "aaaaaaaa" }, new string[2] { "bbbbbbbbb", "bbbbbbbbb" }, new string[4] { "a", "b", "c", "d"} };
-
 
         public bool EnableBorder { get; set; } = true;
 
@@ -69,7 +68,8 @@ namespace MonsterFightSimulator.Game.Actors
                 _textProgress = TextCurrentLength;
                 if (InputDown(ConsoleKey.Spacebar))
                 {
-                    AdvanceToNext();
+                    if (_textCurrent < Text.Length-1) { AdvanceToNext(); }
+                    else { DestroySelf(); }
                 }
             }
         }

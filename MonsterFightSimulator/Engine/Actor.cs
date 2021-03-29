@@ -1,20 +1,27 @@
 ﻿using System;
-using MonsterFightSimulator.Core;
-using MonsterFightSimulator.Rendering;
+
+using MonsterFightSimulator.Engine.Core;
+using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Engine
 {
-    public class Actor : ILayerItem, IHasPosition
+    public class Actor : GameObject
     {
-        public Vector2Int Position { get; set; } = new Vector2Int(0, 0);
+        public Actor()
+            : base() {}
 
         public virtual SpriteInstance SpriteInstance { get; set; } = null;
 
         public virtual void Start() {}
 
-        public virtual void Update(float deltaTime) { if (SpriteInstance != null) { SpriteInstance.Update(deltaTime); } }
+        public override void Update(float deltaTime) { if (SpriteInstance != null) { SpriteInstance.Update(deltaTime); } }
 
-        public virtual void Render() { RenderSelf(); }
+        protected void DestroySelf()
+        {
+            Program.LayerList.Remove(this);
+        }
+
+        public override void Render() { RenderSelf(); }
 
         protected void RenderSelf() { if (SpriteInstance != null) { SpriteInstance.RenderAt(Position); } }
 
@@ -24,9 +31,7 @@ namespace MonsterFightSimulator.Engine
 
         public static bool InputDown(ConsoleKey key)
         {
-            if (Console.KeyAvailable) { return Console.ReadKey(true).Key == key; }
-
-            return false;
+            return Program.PressedKeys.Contains(key);
         }
     }
 }

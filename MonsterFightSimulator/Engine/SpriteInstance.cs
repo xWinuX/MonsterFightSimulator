@@ -1,6 +1,5 @@
-﻿using System;
-using MonsterFightSimulator.Rendering;
-using MonsterFightSimulator.Core;
+﻿using MonsterFightSimulator.Engine.Rendering;
+using MonsterFightSimulator.Engine.Core;
 
 namespace MonsterFightSimulator.Engine
 {

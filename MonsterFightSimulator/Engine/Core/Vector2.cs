@@ -1,4 +1,4 @@
-﻿namespace MonsterFightSimulator.Core
+﻿namespace MonsterFightSimulator.Engine.Core
 {
     public class Vector2Int
     {

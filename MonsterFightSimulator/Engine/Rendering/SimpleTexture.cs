@@ -1,4 +1,4 @@
-﻿namespace MonsterFightSimulator.Rendering
+﻿namespace MonsterFightSimulator.Engine.Rendering
 {
     public class SimpleTexture : IRenderable
     {

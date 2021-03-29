@@ -1,4 +1,4 @@
-﻿using MonsterFightSimulator.Rendering;
+﻿using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Game
 {

@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using MonsterFightSimulator.Core;
+using MonsterFightSimulator.Engine.Core;
 
-namespace MonsterFightSimulator.Rendering
+namespace MonsterFightSimulator.Engine.Rendering
 {
     public class RenderSurface : IRenderable
     {

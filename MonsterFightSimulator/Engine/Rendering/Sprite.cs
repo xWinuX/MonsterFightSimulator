@@ -1,7 +1,8 @@
 ﻿using System;
-using MonsterFightSimulator.Core;
 
-namespace MonsterFightSimulator.Rendering
+using MonsterFightSimulator.Engine.Core;
+
+namespace MonsterFightSimulator.Engine.Rendering
 {
     public class Sprite : IRenderable
     {

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using MonsterFightSimulator.Core;
-using MonsterFightSimulator.Rendering;
+using MonsterFightSimulator.Engine.Core;
+using MonsterFightSimulator.Engine.Rendering;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Game.Actors;
 using MonsterFightSimulator.Game;
+using System.Collections.Generic;
 
 namespace MonsterFightSimulator
 {
@@ -12,7 +13,9 @@ namespace MonsterFightSimulator
     {
         public static RenderSurface ApplicationSurface = new RenderSurface(new Vector2Int(100, 20));
         public static RenderSurface CurrentSurface = ApplicationSurface;
-        public static LayerItemList LayerItemList = new LayerItemList();
+        public static LayerList LayerList = new LayerList();
+
+        public static List<ConsoleKey> PressedKeys = new List<ConsoleKey>();
 
         static void Setup()
         {
@@ -23,12 +26,9 @@ namespace MonsterFightSimulator
                 Position = new Vector2Int(5, 5)
             };
 
-            LayerItemContainer layerItemContainer00 = new LayerItemContainer();
-            layerItemContainer00.Add(actor);
-            layerItemContainer00.Add(textbox);
-
-            LayerItemList.Add(0, layerItemContainer00);
-            LayerItemList.Add(1, new LayerSprite(SpriteDatabase.SprTest2, new Vector2Int(10, 10)));
+            LayerList.Add(1, actor);
+            LayerList.Add(0, textbox);
+            LayerList.Add(1, new LayerSprite(SpriteDatabase.SprTest2, new Vector2Int(10, 10)));
         }
 
         static void Main(string[] args)
@@ -52,13 +52,21 @@ namespace MonsterFightSimulator
                 float deltaTime = (float)(newTime - currentTime);
                 currentTime = newTime;
 
+
+                // Input
+                PressedKeys.Clear();
+                while (Console.KeyAvailable)
+                {
+                    PressedKeys.Add(Console.ReadKey(true).Key);
+                }
+
                 // Updating
-                LayerItemList.Update(deltaTime);
+                LayerList.Update(deltaTime);
 
                 // Rendering
                 Console.SetCursorPosition(0, 0);
                 ApplicationSurface.Clear();
-                LayerItemList.Render();
+                LayerList.Render();
 
                 // Draw application surface
                 foreach (string line in ApplicationSurface.Texture) { Console.WriteLine(line); }
