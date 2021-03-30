@@ -15,7 +15,6 @@ namespace MonsterFightSimulator.Game.Actors
 
         public bool EnableBorder { get; set; } = true;
 
-        private bool _textCurrentFinished = false;
         private int _textCurrent = 0;
         private float _textSpeed = 15f;
         private float _textProgress = 0f;

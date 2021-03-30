@@ -16,13 +16,13 @@ namespace MonsterFightSimulator.Engine
 
         public void Update(float deltaTime) { _sprite.FrameIndex += _sprite.FrameSpeed * SpeedModifier * deltaTime; }
         
-        public void RenderAt(Vector2Int position) { Program.CurrentSurface.RenderOn(position, _sprite); }            
+        public void RenderAt(Vector2Int position) { Program.Renderer.RenderOn(position, _sprite); }            
         
         public void RenderAt(Vector2Int position, float frameIndex) 
         {
             SpeedModifier = 0f;
             _sprite.FrameIndex = (float)frameIndex;
-            Program.CurrentSurface.RenderOn(position, _sprite); 
+            Program.Renderer.RenderOn(position, _sprite); 
         }            
 
         public Sprite _sprite;

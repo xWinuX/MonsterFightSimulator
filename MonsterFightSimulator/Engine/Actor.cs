@@ -27,7 +27,7 @@ namespace MonsterFightSimulator.Engine
 
         public static void RenderSpriteAt(Vector2Int position, SpriteData spriteData) { new SpriteInstance(spriteData).RenderAt(position); }
         public static void RenderSpriteAt(Vector2Int position, SpriteData spriteData, float frameIndex) { new SpriteInstance(spriteData).RenderAt(position, frameIndex); }
-        public static void RenderStringAt(Vector2Int position, string[] texture) { Program.CurrentSurface.RenderOn(position, new SimpleTexture(texture)); }
+        public static void RenderStringAt(Vector2Int position, string[] texture) { Program.Renderer.RenderOn(position, new SimpleTexture(texture)); }
 
         public static bool InputDown(ConsoleKey key)
         {

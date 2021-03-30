@@ -11,11 +11,15 @@ namespace MonsterFightSimulator
 {
     class Program
     {
-        public static RenderSurface ApplicationSurface = new RenderSurface(new Vector2Int(100, 20));
-        public static RenderSurface CurrentSurface = ApplicationSurface;
+        public static Renderer Renderer = new Renderer(new Vector2Int(50, 20), new Vector2Int(50, 20));
+
+        public static Camera Camera = Renderer.Camera;
+
         public static LayerList LayerList = new LayerList();
 
         public static List<ConsoleKey> PressedKeys = new List<ConsoleKey>();
+
+        public static float DeltaTime = 0f;
 
         static void Setup()
         {
@@ -49,7 +53,7 @@ namespace MonsterFightSimulator
             {
                 // Calculate deltatime
                 double newTime = elapsedTime.Elapsed.TotalSeconds;
-                float deltaTime = (float)(newTime - currentTime);
+                DeltaTime = (float)(newTime - currentTime);
                 currentTime = newTime;
 
 
@@ -61,15 +65,15 @@ namespace MonsterFightSimulator
                 }
 
                 // Updating
-                LayerList.Update(deltaTime);
+                LayerList.Update(DeltaTime);
 
-                // Rendering
-                Console.SetCursorPosition(0, 0);
-                ApplicationSurface.Clear();
+                Renderer.Prepare(); 
+
+                // Draw everything onto the renderer
                 LayerList.Render();
 
-                // Draw application surface
-                foreach (string line in ApplicationSurface.Texture) { Console.WriteLine(line); }
+                // Actually display the rendered image
+                Renderer.Display();
             }
         }
     }

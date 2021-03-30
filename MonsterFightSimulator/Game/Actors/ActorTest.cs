@@ -22,12 +22,17 @@ namespace MonsterFightSimulator.Game.Actors
             if (InputDown(ConsoleKey.S)) { input.Y = 1; }
 
             Position.Add(input);
+            Program.Camera.Position.Add(input);
         }
+
         public override void Render()
         {
             base.Render();
 
             RenderSpriteAt(new Vector2Int(Position.X+10, Position.Y), SpriteDatabase.SprTest, SpriteInstance.FrameIndex);
+
+            string[] str = new string[1] { Program.DeltaTime.ToString() };
+            RenderStringAt(new Vector2Int(Position.X, Position.Y + 5), str);
         }
     }
 

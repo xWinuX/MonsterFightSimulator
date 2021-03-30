@@ -5,19 +5,26 @@ namespace MonsterFightSimulator.Engine.Rendering
 {
     public class RenderSurface : IRenderable
     {
-        public RenderSurface(Vector2Int size)
+        private const char _defaultWhitespaceCharacter = ' ';
+
+        public RenderSurface(Vector2Int size) { Resize(size); }
+
+        public string[] Texture { get; private set; }
+
+        public Vector2Int Size
         {
-            Size    = size;
+            get => _size;
+            set => Resize(value);
+        }
+        private Vector2Int _size = new Vector2Int(0, 0);
+
+        private void Resize(Vector2Int size)
+        {
+            _size = size;
             Texture = new string[Size.Y];
 
             Clear();
         }
-
-        private const char _defaultWhitespaceCharacter = ' ';
-
-        public string[] Texture { get; private set; }
-
-        public Vector2Int Size { get; private set; }
 
         public void RenderOn(Vector2Int position, IRenderable renderable)
         {
