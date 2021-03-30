@@ -30,7 +30,7 @@ namespace MonsterFightSimulator.Game.Actors
                 return _sizeMin;
             }
         }
-        private Vector2Int _sizeMin = new Vector2Int(0, 0);
+        private readonly Vector2Int _sizeMin = new Vector2Int(0, 0);
 
         private Vector2Int Size
         {

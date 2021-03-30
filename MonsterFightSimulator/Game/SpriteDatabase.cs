@@ -18,6 +18,5 @@ namespace MonsterFightSimulator.Game
                                                 "MMMMMMMMMM"} },
             1f
         );
-        
     }
 }

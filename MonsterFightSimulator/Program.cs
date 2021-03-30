@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
+
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Game.Actors;
 using MonsterFightSimulator.Game;
-using System.Collections.Generic;
 
 namespace MonsterFightSimulator
 {
     class Program
     {
-        public static Renderer Renderer = new Renderer(new Vector2Int(50, 20), new Vector2Int(50, 20));
+        public static Renderer Renderer { get; private set; } = new Renderer(new Vector2Int(50, 20), new Vector2Int(50, 20));
 
-        public static Camera Camera = Renderer.Camera;
+        public static Camera Camera { get; private set; } = Renderer.Camera;
 
-        public static LayerList LayerList = new LayerList();
+        public static LayerList LayerList { get; private set; } = new LayerList();
 
-        public static List<ConsoleKey> PressedKeys = new List<ConsoleKey>();
+        public static List<ConsoleKey> PressedKeys { get; private set; } = new List<ConsoleKey>();
 
-        public static float DeltaTime = 0f;
+        public static bool Quit { get; set; } = false;
 
-        static void Setup()
+        public static float DeltaTime { get; private set; } = 0f;
+
+        private static void Setup()
         {
             ActorTest actor = new ActorTest();
 
@@ -35,41 +38,32 @@ namespace MonsterFightSimulator
             LayerList.Add(1, new LayerSprite(SpriteDatabase.SprTest2, new Vector2Int(10, 10)));
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // Run Setup Code
             Setup();
-
-            // Configure Console
-            Console.CursorVisible = false;
 
             // Setup timer
             Stopwatch elapsedTime = Stopwatch.StartNew();
             double currentTime = elapsedTime.Elapsed.TotalSeconds;
 
             // Game loop
-            bool quit = false;
-            while (!quit)
+            while (!Quit)
             {
                 // Calculate deltatime
                 double newTime = elapsedTime.Elapsed.TotalSeconds;
                 DeltaTime = (float)(newTime - currentTime);
                 currentTime = newTime;
 
-
                 // Input
                 PressedKeys.Clear();
-                while (Console.KeyAvailable)
-                {
-                    PressedKeys.Add(Console.ReadKey(true).Key);
-                }
+                while (Console.KeyAvailable) { PressedKeys.Add(Console.ReadKey(true).Key); }
 
                 // Updating
                 LayerList.Update(DeltaTime);
 
-                Renderer.Prepare(); 
-
                 // Draw everything onto the renderer
+                Renderer.Prepare();
                 LayerList.Render();
 
                 // Actually display the rendered image

@@ -4,9 +4,8 @@ namespace MonsterFightSimulator.Engine
 {
     class LayerList
     {
-        private SortedList<int, List<GameObject>> _list = new SortedList<int, List<GameObject>>();
-        private SortedList<int, List<int>> _delete = new SortedList<int, List<int>>();
-
+        private readonly SortedList<int, List<GameObject>> _list = new SortedList<int, List<GameObject>>();
+        private readonly SortedList<int, List<int>> _delete = new SortedList<int, List<int>>();
 
         public void Add(int depth, GameObject layerItem)
         {

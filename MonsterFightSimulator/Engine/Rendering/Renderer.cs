@@ -1,5 +1,6 @@
-﻿using MonsterFightSimulator.Engine.Core;
-using System;
+﻿using System;
+
+using MonsterFightSimulator.Engine.Core;
 
 namespace MonsterFightSimulator.Engine.Rendering
 {
@@ -20,9 +21,9 @@ namespace MonsterFightSimulator.Engine.Rendering
             Console.SetWindowSize(_windowSize.X, _windowSize.Y);
         }
 
-        private Vector2Int _windowSize = new Vector2Int(20, 20);
+        private readonly Vector2Int _windowSize = new Vector2Int(20, 20);
 
-        private RenderSurface _applicationSurface;
+        private readonly RenderSurface _applicationSurface;
 
         public Camera Camera { get; private set; }
 
