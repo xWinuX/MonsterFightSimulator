@@ -6,12 +6,14 @@ namespace MonsterFightSimulator.Engine.Rendering
 {
     public class RenderSurface : IRenderable
     {
-        private const char _defaultWhitespaceCharacter = ' ';
+        private const char DefaultWhitespaceCharacter = ' ';
 
         public RenderSurface(Vector2Int size) { Resize(size); }
 
         public string[] Texture { get; private set; }
 
+        public Vector2Int Origin { get; private set; } = new Vector2Int(0, 0);
+        
         public Vector2Int Size
         {
             get => _size;
@@ -36,7 +38,7 @@ namespace MonsterFightSimulator.Engine.Rendering
             if (position.Y <= -height) { return; }
 
             // Render each line of the image
-            Vector2Int finalPosition = new Vector2Int(0, 0);
+            Vector2Int finalPosition = Vector2Int.Zero;
             for (int y = 0; y < height; y++)
             {
                 // Calculate Positions
@@ -72,7 +74,7 @@ namespace MonsterFightSimulator.Engine.Rendering
             }  
         }
 
-        public void Clear(char fill = _defaultWhitespaceCharacter)
+        public void Clear(char fill = DefaultWhitespaceCharacter)
         {
             for (int y = 0; y < Size.Y; y++)
             {

@@ -1,24 +1,38 @@
 ﻿using MonsterFightSimulator.Engine.Core;
+using MonsterFightSimulator.Game.Actors;
 
 namespace MonsterFightSimulator.Engine
 {
-    public class GameObject
+    public abstract class GameObject
     {
-        public GameObject()
+        protected GameObject()
         {
-            ID = _idCount;
+            Id = _idCount;
             _idCount++;
 
-            Name = "Actor" + ID.ToString();
+            Name = "Actor" + Id.ToString();
         }
 
-        public int ID { get; private set; }
+        public static T Instantiate<T>(int depth, Vector2Int position) where T : GameObject, new()
+        {
+            T gameObject = new T();
+            gameObject.Transform.Position = position;
+            Program.LayerList.Add(depth, gameObject);
+            return gameObject;
+        }
+        
+        public void Destroy(GameObject gameObject)
+        {
+            Program.LayerList.Remove(gameObject);
+        }
+
+        public int Id { get; private set; }
 
         public string Name { get; private set; }
 
-        public Vector2Int Position { get; set; } = new Vector2Int(0, 0);
+        public ObjectTransform Transform { get; } = new ObjectTransform();
 
-        private static int _idCount = 0;
+        private static int _idCount;
 
         public virtual void Update(float deltaTime) {}
 

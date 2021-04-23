@@ -18,7 +18,7 @@ namespace MonsterFightSimulator.Engine
         {
             foreach (KeyValuePair<int, List<GameObject>> layer in _list)
             {
-                int index = layer.Value.FindIndex(x => x.ID == gameObject.ID);
+                int index = layer.Value.FindIndex(x => x.Id == gameObject.Id);
                 if (index != -1)
                 {
                     if (!_delete.ContainsKey(layer.Key)) { _delete.Add(layer.Key, new List<int>()); }

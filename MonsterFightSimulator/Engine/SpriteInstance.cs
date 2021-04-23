@@ -14,6 +14,8 @@ namespace MonsterFightSimulator.Engine
 
         public float FrameIndex => _sprite.FrameIndex;
 
+        public Vector2Int Origin => _sprite.Origin;
+
         public void Update(float deltaTime) { _sprite.FrameIndex += _sprite.FrameSpeed * SpeedModifier * deltaTime; }
         
         public void RenderAt(Vector2Int position) { Program.Renderer.RenderOn(position, _sprite); }            
@@ -21,10 +23,10 @@ namespace MonsterFightSimulator.Engine
         public void RenderAt(Vector2Int position, float frameIndex) 
         {
             SpeedModifier = 0f;
-            _sprite.FrameIndex = (float)frameIndex;
+            _sprite.FrameIndex = frameIndex;
             Program.Renderer.RenderOn(position, _sprite); 
         }            
 
-        public Sprite _sprite;
+        private Sprite _sprite;
     }
 }

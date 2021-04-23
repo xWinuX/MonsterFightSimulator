@@ -7,17 +7,15 @@ using MonsterFightSimulator.Engine;
 
 namespace MonsterFightSimulator.Game.Actors
 {
-    class ActorTextBox : Actor
+    public class ActorTextBox : Actor
     {
-        public ActorTextBox() { Start(); }
-
-        public string[][] Text { get; set; } = new string[3][] { new string[3] { "aaaaaaaa", "aaaaaa", "aaaaaaaa" }, new string[2] { "bbbbbbbbb", "bbbbbbbbb" }, new string[4] { "a", "b", "c", "d"} };
+        public string[][] Text { get; set; } = { new string[] { "aaaaaaaa", "aaaaaa", "aaaaaaaa" }, new string[] { "bbbbbbbbb", "bbbbbbbbb" }, new string[] { "a", "b", "c", "d"} };
 
         public bool EnableBorder { get; set; } = true;
 
-        private int _textCurrent = 0;
+        private int   _textCurrent;
+        private float _textProgress;
         private float _textSpeed = 15f;
-        private float _textProgress = 0f;
 
         private int TextCurrentLength => Text[_textCurrent].Sum(line => line.Length);
 
@@ -30,7 +28,7 @@ namespace MonsterFightSimulator.Game.Actors
                 return _sizeMin;
             }
         }
-        private readonly Vector2Int _sizeMin = new Vector2Int(0, 0);
+        private Vector2Int _sizeMin = new Vector2Int(0, 0);
 
         private Vector2Int Size
         {
@@ -68,7 +66,7 @@ namespace MonsterFightSimulator.Game.Actors
                 if (InputDown(ConsoleKey.Spacebar))
                 {
                     if (_textCurrent < Text.Length-1) { AdvanceToNext(); }
-                    else { DestroySelf(); }
+                    else { Destroy(this); }
                 }
             }
         }
@@ -89,7 +87,7 @@ namespace MonsterFightSimulator.Game.Actors
 
                 // Add text with side borders
                 drawString[i] =     "|"
-                                +   text.Substring(0, progress) + new StringBuilder().Append(' ', Size.X - progress).ToString()
+                                +   text.Substring(0, progress) + new StringBuilder().Append(' ', Size.X - progress)
                                 +   "|";
 
                 // Add length to calculate next progress
@@ -99,7 +97,7 @@ namespace MonsterFightSimulator.Game.Actors
             // Fill rest of box with whitespace
             for (int i = Text[_textCurrent].Length + arrayOffset; i < Size.Y - arrayOffset; i++)
             {
-                drawString[i] = "|" + new StringBuilder().Append(' ', Size.X).ToString() + "|";
+                drawString[i] = "|" + new StringBuilder().Append(' ', Size.X) + "|";
             }
             
             // Add border if enabled
@@ -111,7 +109,7 @@ namespace MonsterFightSimulator.Game.Actors
             }
 
             // Render TextBox
-            RenderStringAt(Position, drawString);
+            RenderStringAt(Transform.Position, drawString);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace MonsterFightSimulator.Engine.Rendering
             Console.SetWindowSize(_windowSize.X, _windowSize.Y);
         }
 
-        private readonly Vector2Int _windowSize = new Vector2Int(20, 20);
+        private readonly Vector2Int _windowSize;
 
         private readonly RenderSurface _applicationSurface;
 
@@ -29,7 +29,7 @@ namespace MonsterFightSimulator.Engine.Rendering
 
         public void RenderOn(Vector2Int position, IRenderable renderable)
         {
-            _applicationSurface.RenderOn(Vector2Int.Sub(position, Camera.Position), renderable);
+            _applicationSurface.RenderOn((position - Camera.Position) - renderable.Origin, renderable);
         }
 
         public void Prepare()

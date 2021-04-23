@@ -10,6 +10,8 @@ namespace MonsterFightSimulator.Engine.Rendering
 
         public string[] Texture => _spriteData.Frames[(int)Math.Floor(FrameIndex)];
 
+        public Vector2Int Origin => _spriteData.Origin;
+
         public float FrameSpeed => _spriteData.FrameSpeed;
 
         public float FrameIndex
@@ -17,7 +19,7 @@ namespace MonsterFightSimulator.Engine.Rendering
             get => _frameIndex;
             set => _frameIndex = MyMathF.Wrap(value, 0, _spriteData.FrameCount);
         }
-        private float _frameIndex = 0; // Private member for proprty
+        private float _frameIndex;
 
         private readonly SpriteData _spriteData;
     }

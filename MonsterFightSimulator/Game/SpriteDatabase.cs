@@ -2,21 +2,32 @@
 
 namespace MonsterFightSimulator.Game
 {
-    public class SpriteDatabase
+    public static class SpriteDatabase
     {
-        public static readonly SpriteData SprTest = new SpriteData(
-            new string[2][] {   new string[2] {     "aa",
-                                                    "aa"},
-
-                                new string[2] {     "AA",
-                                                    "AA"}
+        public static readonly SpriteData SprTest = new SpriteData(3f, new[]
+        {
+            new[]
+            {
+                " o ",
+                "/O\\",
+                " ^"
             },
-            3f
-        );        
-        public static readonly SpriteData SprTest2 = new SpriteData(
-            new string[1][] { new string[2] {   "MMMMMMMMMM",
-                                                "MMMMMMMMMM"} },
-            1f
-        );
+
+            new[]
+            {
+                " o ",
+                "|O|",
+                " | "
+            }
+        });
+
+        public static readonly SpriteData SprTest2 = new SpriteData(1f, new[]
+        {
+            new[]
+            {
+                "MMMMMMMMMM",
+                "MMMMMMMMMM"
+            }
+        });
     }
 }

@@ -10,7 +10,7 @@ using MonsterFightSimulator.Game;
 
 namespace MonsterFightSimulator
 {
-    class Program
+    internal static class Program
     {
         public static Renderer Renderer { get; private set; } = new Renderer(new Vector2Int(50, 20), new Vector2Int(50, 20));
 
@@ -22,19 +22,15 @@ namespace MonsterFightSimulator
 
         public static bool Quit { get; set; } = false;
 
-        public static float DeltaTime { get; private set; } = 0f;
+        public static float DeltaTime { get; private set; }
 
         private static void Setup()
         {
             ActorTest actor = new ActorTest();
 
-            ActorTextBox textbox = new ActorTextBox
-            {
-                Position = new Vector2Int(5, 5)
-            };
+            GameObject.Instantiate<ActorTextBox>(0, new Vector2Int(5, 5));
 
             LayerList.Add(1, actor);
-            LayerList.Add(0, textbox);
             LayerList.Add(1, new LayerSprite(SpriteDatabase.SprTest2, new Vector2Int(10, 10)));
         }
 
