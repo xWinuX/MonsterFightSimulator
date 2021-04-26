@@ -1,4 +1,4 @@
-﻿namespace MonsterFightSimulator
+﻿namespace MonsterFightSimulator.Project
 {
     public class Monster
     {

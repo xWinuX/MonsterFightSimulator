@@ -6,14 +6,15 @@ namespace MonsterFightSimulator.Engine.Rendering
     {
         public SpriteData(float frameSpeed, string[][] frames)
         {
-            Frames      = frames;
-            FrameSpeed  = frameSpeed;
-            FrameCount  = frames.GetLength(0);
+            Frames     = frames;
+            FrameSpeed = frameSpeed;
+            FrameCount = frames.GetLength(0);
 
-            foreach(string[] frame in Frames)
+            foreach (string[] frame in Frames)
             {
                 Vector2Int size = Vector2Int.Zero;
                 if (frame.Length > Size.Y) { size.Y = frame.Length; }
+
                 foreach (string line in frame)
                 {
                     if (line.Length > Size.X) { size.X = line.Length; }
@@ -22,13 +23,13 @@ namespace MonsterFightSimulator.Engine.Rendering
                 Size = size;
             }
 
-            Origin   = new Vector2Int(Size.X / 2, Size.Y / 2);
+            Origin = new Vector2Int(Size.X / 2, Size.Y / 2);
         }
 
-        public float FrameSpeed { get; private set; }
-        public int FrameCount { get; private set; }
-        public string[][] Frames { get; private set; }
-        public Vector2Int Origin { get; private set; }
-        public Vector2Int Size { get; private set; } = Vector2Int.Zero;
+        public float FrameSpeed { get; }
+        public int FrameCount { get; }
+        public string[][] Frames { get; }
+        public Vector2Int Origin { get; }
+        public Vector2Int Size { get; } = Vector2Int.Zero;
     }
 }

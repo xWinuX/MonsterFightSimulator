@@ -4,32 +4,42 @@ using MonsterFightSimulator.Engine.Core;
 
 namespace MonsterFightSimulator.Engine.Rendering
 {
-    class Renderer
+    public class Renderer
     {
-        public Renderer(Vector2Int cameraViewSize, Vector2Int windowSize)
+        public const char Transparency    = ' ';
+        public const char TransparentChar = '_';
+
+        public Renderer(Camera camera, Vector2Int windowSize)
         {
-            // Create camera and configure it
-            Camera = new Camera(cameraViewSize);
-            Camera.Size = cameraViewSize;
-
-            // Create application surface and configure it
-            _applicationSurface = new RenderSurface(cameraViewSize);
-            _applicationSurface.Size = Camera.Size;
-
-            // Set window size and apply it
-            _windowSize = windowSize;
-            Console.SetWindowSize(_windowSize.X, _windowSize.Y);
+            AssignCamera(camera);
+            SetWindowSize(windowSize);
         }
 
-        private readonly Vector2Int _windowSize;
+        private RenderSurface _applicationSurface = new RenderSurface(Vector2Int.Zero);
+        private RenderSurface _guiSurface         = new RenderSurface(Vector2Int.Zero);
+        
+        private Camera _camera;
+        
+        private Vector2Int _windowSize;
 
-        private readonly RenderSurface _applicationSurface;
+        public void AssignCamera(Camera camera)
+        {
+            _camera = camera;
+            RenderSurface newApplicationSurface = new RenderSurface(_camera.Size);
+            newApplicationSurface.RenderOn(Vector2Int.Zero, _applicationSurface);
+            _applicationSurface = newApplicationSurface;
 
-        public Camera Camera { get; private set; }
+        }
 
+        public void SetWindowSize(Vector2Int windowSize)
+        {
+            _windowSize = windowSize;
+            Console.SetWindowSize(_windowSize.X, _windowSize.Y);    
+        }
+        
         public void RenderOn(Vector2Int position, IRenderable renderable)
         {
-            _applicationSurface.RenderOn((position - Camera.Position) - renderable.Origin, renderable);
+            _applicationSurface.RenderOn(position - _camera.Position - renderable.Origin, renderable);
         }
 
         public void Prepare()

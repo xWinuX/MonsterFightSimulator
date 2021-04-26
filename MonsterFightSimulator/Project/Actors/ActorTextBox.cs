@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Text;
 using System.Linq;
-
-using MonsterFightSimulator.Engine.Core;
+using System.Text;
 using MonsterFightSimulator.Engine;
+using MonsterFightSimulator.Engine.Core;
 
-namespace MonsterFightSimulator.Game.Actors
+namespace MonsterFightSimulator.Project.Actors
 {
     public class ActorTextBox : Actor
     {
-        public string[][] Text { get; set; } = { new string[] { "aaaaaaaa", "aaaaaa", "aaaaaaaa" }, new string[] { "bbbbbbbbb", "bbbbbbbbb" }, new string[] { "a", "b", "c", "d"} };
+        public string[][] Text { get; set; } = { new[] { "aaaaaaaa", "aaaaaa", "aaaaaaaa" }, new[] { "bbbbbbbbb", "bbbbbbbbb" }, new[] { "a", "b", "c", "d"} };
 
         public bool EnableBorder { get; set; } = true;
 
@@ -28,7 +27,7 @@ namespace MonsterFightSimulator.Game.Actors
                 return _sizeMin;
             }
         }
-        private Vector2Int _sizeMin = new Vector2Int(0, 0);
+        private Vector2Int _sizeMin = Vector2Int.Zero;
 
         private Vector2Int Size
         {
@@ -48,7 +47,7 @@ namespace MonsterFightSimulator.Game.Actors
                 _size = value;
             }
         }
-        private Vector2Int _size = new Vector2Int(0, 0);
+        private Vector2Int _size = Vector2Int.Zero;
 
 
         private void AdvanceToNext()
@@ -57,17 +56,17 @@ namespace MonsterFightSimulator.Game.Actors
             _textCurrent++;
         }
 
-        public override void Update(float deltaTime)
+        public override void Update()
         {
-            if (_textProgress < TextCurrentLength) { _textProgress += _textSpeed * deltaTime; }
+            if (_textProgress < TextCurrentLength) { _textProgress += _textSpeed * Game.DeltaTime; }
             else
             {
                 _textProgress = TextCurrentLength;
-                if (InputDown(ConsoleKey.Spacebar))
-                {
-                    if (_textCurrent < Text.Length-1) { AdvanceToNext(); }
-                    else { Destroy(this); }
-                }
+                
+                if (!InputDown(ConsoleKey.Spacebar)) { return; }
+
+                if (_textCurrent < Text.Length-1) { AdvanceToNext(); }
+                else { Destroy(this); }
             }
         }
 

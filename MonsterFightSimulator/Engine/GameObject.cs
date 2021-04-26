@@ -1,5 +1,5 @@
 ﻿using MonsterFightSimulator.Engine.Core;
-using MonsterFightSimulator.Game.Actors;
+using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Engine
 {
@@ -13,29 +13,37 @@ namespace MonsterFightSimulator.Engine
             Name = "Actor" + Id.ToString();
         }
 
-        public static T Instantiate<T>(int depth, Vector2Int position) where T : GameObject, new()
-        {
-            T gameObject = new T();
-            gameObject.Transform.Position = position;
-            Program.LayerList.Add(depth, gameObject);
-            return gameObject;
-        }
+        public int Id { get; }
+
+        public string Name { get; }
+
+        public Transform Transform { get; } = new Transform();
+
+        public Game Game { get; set; }
         
-        public void Destroy(GameObject gameObject)
-        {
-            Program.LayerList.Remove(gameObject);
-        }
-
-        public int Id { get; private set; }
-
-        public string Name { get; private set; }
-
-        public ObjectTransform Transform { get; } = new ObjectTransform();
+        public Sprite Sprite{ get; set; }
 
         private static int _idCount;
 
-        public virtual void Update(float deltaTime) {}
+        public static T InitializeAtPosition<T>(Vector2Int position) where T : GameObject, new()
+        {
+            T gameObject = new T();
+            gameObject.Transform.Position = position;
+            return gameObject;
+        }
 
-        public virtual void Render() {}
+        protected T Instantiate<T>(int depth, Vector2Int position) where T : GameObject, new()
+        {
+            T gameObject = new T();
+            gameObject.Transform.Position = position;
+            Game.CurrentRoom.AddGameObject(depth, gameObject);
+            return gameObject;
+        }
+
+        protected void Destroy(GameObject gameObject) { Game.CurrentRoom.DestroyObject(gameObject); }
+
+        public virtual void Update() { }
+
+        public virtual void Render() { }
     }
 }

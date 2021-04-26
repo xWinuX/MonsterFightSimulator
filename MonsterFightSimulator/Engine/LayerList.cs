@@ -2,7 +2,7 @@
 
 namespace MonsterFightSimulator.Engine
 {
-    class LayerList
+    public class LayerList
     {
         private readonly SortedList<int, List<GameObject>> _list = new SortedList<int, List<GameObject>>();
         private readonly SortedList<int, List<int>> _delete = new SortedList<int, List<int>>();
@@ -19,15 +19,14 @@ namespace MonsterFightSimulator.Engine
             foreach (KeyValuePair<int, List<GameObject>> layer in _list)
             {
                 int index = layer.Value.FindIndex(x => x.Id == gameObject.Id);
-                if (index != -1)
-                {
-                    if (!_delete.ContainsKey(layer.Key)) { _delete.Add(layer.Key, new List<int>()); }
-                    _delete[layer.Key].Add(index);
-                }
+                if (index == -1) { continue; }
+
+                if (!_delete.ContainsKey(layer.Key)) { _delete.Add(layer.Key, new List<int>()); }
+                _delete[layer.Key].Add(index);
             }
         }
 
-        public void Update(float deltaTime)
+        public void Update()
         {
             foreach (KeyValuePair<int, List<int>> layer in _delete)
             {
@@ -38,7 +37,7 @@ namespace MonsterFightSimulator.Engine
 
             foreach (KeyValuePair<int, List<GameObject>> layer in _list)
             {
-                foreach(GameObject layerItem in layer.Value) { layerItem.Update(deltaTime); }
+                foreach(GameObject layerItem in layer.Value) { layerItem.Update(); }
             }
         }
         

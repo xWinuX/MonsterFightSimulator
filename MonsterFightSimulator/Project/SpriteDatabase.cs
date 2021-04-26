@@ -1,10 +1,10 @@
 ﻿using MonsterFightSimulator.Engine.Rendering;
 
-namespace MonsterFightSimulator.Game
+namespace MonsterFightSimulator.Project
 {
     public static class SpriteDatabase
     {
-        public static readonly SpriteData SprTest = new SpriteData(3f, new[]
+        private static readonly SpriteData DataSprTest = new SpriteData(3f, new[]
         {
             new[]
             {
@@ -20,14 +20,17 @@ namespace MonsterFightSimulator.Game
                 " | "
             }
         });
+        public static Sprite SprTest => new Sprite(DataSprTest);
 
-        public static readonly SpriteData SprTest2 = new SpriteData(1f, new[]
+        private static readonly SpriteData DataSprTest2 = new SpriteData(1f, new[]
         {
             new[]
             {
-                "MMMMMMMMMM",
-                "MMMMMMMMMM"
+                "MMM____MMM",
+                "MMM____MMM"
             }
         });
+
+        public static Sprite SprTest2 => new Sprite(DataSprTest2);
     }
 }

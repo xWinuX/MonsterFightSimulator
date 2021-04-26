@@ -1,32 +1,32 @@
 ﻿using System;
-
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Engine
 {
-    public class Actor : GameObject
+    public abstract class Actor : GameObject
     {
-        public Actor() { }
-        public Actor(Vector2Int position) { Transform.Position = position; }
-        
-        public virtual SpriteInstance SpriteInstance { get; set; } = null;
+        public override void Update() { Sprite?.Update(Game.DeltaTime); }
 
-        public override void Update(float deltaTime) { if (SpriteInstance != null) { SpriteInstance.Update(deltaTime); } }
-
-        public void GameQuit() { Program.Quit = true; }
+        public void GameQuit() { Game.Quit = true; }
 
         public override void Render() { RenderSelf(); }
 
-        protected void RenderSelf() { if (SpriteInstance != null) { SpriteInstance.RenderAt(Transform.Position); } }
-
-        public static void RenderSpriteAt(Vector2Int position, SpriteData spriteData) { new SpriteInstance(spriteData).RenderAt(position); }
-        public static void RenderSpriteAt(Vector2Int position, SpriteData spriteData, float frameIndex) { new SpriteInstance(spriteData).RenderAt(position, frameIndex); }
-        public static void RenderStringAt(Vector2Int position, string[] texture) { Program.Renderer.RenderOn(position, new SimpleTexture(texture)); }
-
-        public static bool InputDown(ConsoleKey key)
+        protected void RenderSelf()
         {
-            return Program.PressedKeys.Contains(key);
+            if (Sprite != null) { Game.Renderer.RenderOn(Transform.Position, Sprite); }
         }
+
+        public void RenderSpriteAt(Vector2Int position, SpriteData spriteData) { Game.Renderer.RenderOn(position, new Sprite(spriteData)); }
+
+        public void RenderSpriteAt(Vector2Int position, SpriteData spriteData, float frameIndex)
+        {
+            Sprite sprite = new Sprite(spriteData) {FrameIndex = frameIndex};
+            Game.Renderer.RenderOn(position, sprite);
+        }
+
+        public void RenderStringAt(Vector2Int position, string[] texture) { Game.Renderer.RenderOn(position, new SimpleTexture(texture)); }
+
+        public bool InputDown(ConsoleKey key) { return Game.PressedKeys.Contains(key); }
     }
 }
