@@ -7,7 +7,7 @@ namespace MonsterFightSimulator.Engine.Rendering
     public class Renderer
     {
         public const char Transparency    = ' ';
-        public const char TransparentChar = '_';
+        public const char TransparentChar = '&';
 
         public Renderer(Camera camera, Vector2Int windowSize)
         {

@@ -23,7 +23,7 @@ namespace MonsterFightSimulator.Project
 
             //CurrentRoom.AddSpriteObject(1, Camera.Size/2, SpriteDatabase.SprTitle);
             
-            ActorTitle title = GameObject.InitializeAtPosition<ActorTitle>(Camera.Size/2);
+            ActorTitle title = GameObject.InitializeAtPosition<ActorTitle>(Camera.Size/2 + Vector2Int.Up * 6);
             CurrentRoom.AddGameObject(5, title);
             
             //ActorFighterCreateMenu fighterCreateMenu = GameObject.InitializeAtPosition<ActorFighterCreateMenu>(new Vector2Int(2, 1));
