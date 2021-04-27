@@ -25,12 +25,19 @@ namespace MonsterFightSimulator.Engine
             Game.Renderer.RenderOn(position, sprite);
         }
 
-        public string[] StringToTexture(string str)
-        {
-            return new[] {str};
-        }
-        
+        public string[] StringToTexture(string str) { return new[] {str}; }
+
         public void RenderStringAt(Vector2Int position, string[] texture) { Game.Renderer.RenderOn(position, new SimpleTexture(texture)); }
+
+        public void RenderStringAt(Vector2Int position, string[] texture, OriginHelper.Preset preset)
+        {
+            Game.Renderer.RenderOn(position, new SimpleTexture(texture, preset));
+        }
+
+        public void RenderStringAt(Vector2Int position, string[] texture, OriginHelper.AxisX axisX, OriginHelper.AxisY axisY)
+        {
+            Game.Renderer.RenderOn(position, new SimpleTexture(texture, axisX, axisY));
+        }
 
         public bool InputDown(ConsoleKey key) { return Game.PressedKeys.Contains(key); }
     }

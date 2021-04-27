@@ -2,6 +2,7 @@
 using System.Timers;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
+using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Project.Actors
 {
@@ -33,7 +34,7 @@ namespace MonsterFightSimulator.Project.Actors
         {
             base.Render();
 
-            if (_showContinue) { RenderStringAt(_originalPosition + Vector2.Down * 10f, StringToTexture("Press Space to continue...")); }
+            if (_showContinue) { RenderStringAt(_originalPosition + Vector2.Down * 10f, StringToTexture("Press Space to continue..."), OriginHelper.Preset.MiddleCenter); }
         }
     }
 }
