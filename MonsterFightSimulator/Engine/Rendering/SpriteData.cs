@@ -9,20 +9,19 @@ namespace MonsterFightSimulator.Engine.Rendering
             Frames     = frames;
             FrameSpeed = frameSpeed;
             FrameCount = frames.GetLength(0);
-
+            
+            Vector2Int size = Vector2Int.Zero;
             foreach (string[] frame in Frames)
             {
-                Vector2Int size = Vector2Int.Zero;
-                if (frame.Length > Size.Y) { size.Y = frame.Length; }
+                if (frame.Length > size.Y) { size.Y = frame.Length; }
 
                 foreach (string line in frame)
                 {
-                    if (line.Length > Size.X) { size.X = line.Length; }
+                    if (line.Length > size.X) { size.X = line.Length; }
                 }
-
-                Size = size;
             }
 
+            Size   = size;
             Origin = new Vector2Int(Size.X / 2, Size.Y / 2);
         }
 

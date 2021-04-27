@@ -25,6 +25,11 @@ namespace MonsterFightSimulator.Engine
             Game.Renderer.RenderOn(position, sprite);
         }
 
+        public string[] StringToTexture(string str)
+        {
+            return new[] {str};
+        }
+        
         public void RenderStringAt(Vector2Int position, string[] texture) { Game.Renderer.RenderOn(position, new SimpleTexture(texture)); }
 
         public bool InputDown(ConsoleKey key) { return Game.PressedKeys.Contains(key); }

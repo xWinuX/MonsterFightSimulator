@@ -15,7 +15,7 @@ namespace MonsterFightSimulator.Project.Actors
         {
             base.Update();
 
-            Vector2Int input = Vector2Int.Zero;
+            Vector2 input = Vector2.Zero;
 
             // Movement
             if (InputDown(ConsoleKey.D)) { input.X = 1; }

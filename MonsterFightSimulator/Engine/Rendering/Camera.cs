@@ -9,12 +9,12 @@ namespace MonsterFightSimulator.Engine.Rendering
             Size = size;
         }
 
-        public void SetTarget(Vector2Int target)
+        public void SetTarget(Vector2 target)
         {
-            Position = new Vector2Int(target.X - (Size.X / 2), target.Y - (Size.Y / 2));
+            Position = new Vector2(target.X - (Size.X / 2), target.Y - (Size.Y / 2));
         }
 
-        public Vector2Int Position { get; set; } = Vector2Int.Zero;
+        public Vector2 Position { get; set; } = Vector2.Zero;
 
         public Vector2Int Size { get; set; }
     }

@@ -2,16 +2,17 @@
 {
     public class Monster
     {
-        public Monster(string name, Race race)
+        public Monster(string name, Race race, MonsterStats monsterStats)
         {
-            Name = name;
-            Race = race;
+            Name         = name;
+            Race         = race;
+            MonsterStats = monsterStats;
         }
 
-        public string Name { get; set; }
+        public MonsterStats MonsterStats { get; }
 
-        public string RaceName => Race.Name;
+        public string Name { get; }
 
-        protected Race Race { get; set; }
+        public Race Race { get; }
     }
 }

@@ -30,7 +30,41 @@ namespace MonsterFightSimulator.Project
                 "MMM____MMM"
             }
         });
-
-        public static Sprite SprTest2 => new Sprite(DataSprTest2);
+        public static Sprite SprTest2 => new Sprite(DataSprTest2);        
+        
+        private static readonly SpriteData DataSprTitle = new SpriteData(6f, new[]
+        {
+            new[] // Generated using https://patorjk.com/software/taag/
+            {
+                ",-.-.               |                  ,---.      |    |    ",
+                "| | |,---.,---.,---.|--- ,---.,---.    |__. o,---.|---.|--- ",
+                "| | ||   ||   |`---.|    |---'|        |    ||   ||   ||    ",
+                "` ' '`---'`   '`---'`---'`---'`        `    ``---|`   '`---'",
+                "                                             `---'          ",
+                "                                                            ",
+                "           ,---.o          |         |                      ",
+                "           `---..,-.-..   .|    ,---.|--- ,---.,---.        ",
+                "               ||| | ||   ||    ,---||    |   ||            ",
+                "           `---'`` ' '`---'`---'`---'`---'`---'`            ",
+                "                                                            ",
+                "                       by Edwin Baumann                     "
+            },
+            new []
+            {
+                ",-.-.               |                  ,---.o     |    |    ",
+                "| | |,---.,---.,---.|--- ,---.,---.    |__. .,---.|---.|--- ",
+                "| | ||   ||   |`---.|    |---'|        |    ||   ||   ||    ",
+                "` ' '`---'`   '`---'`---'`---'`        `    ``---|`   '`---'",
+                "                                             `---'          ",
+                "                                                            ",
+                "           ,---.           |         |                      ",
+                "           `---.o,-.-..   .|    ,---.|--- ,---.,---.        ",
+                "               ||| | ||   ||    ,---||    |   ||            ",
+                "           `---'`` ' '`---'`---'`---'`---'`---'`            ",
+                "                                                            ",
+                "                       by Edwin Baumann                     "
+            }
+        });
+        public static Sprite SprTitle=> new Sprite(DataSprTitle);
     }
 }

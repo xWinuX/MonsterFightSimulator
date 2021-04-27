@@ -16,6 +16,7 @@ namespace MonsterFightSimulator.Engine
         public void AddGameObject(int depth, GameObject gameObject)
         {
             gameObject.Game = _game;
+            gameObject.Start();
             _layerList.Add(depth, gameObject);
         }
         

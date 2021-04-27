@@ -1,4 +1,5 @@
-﻿using MonsterFightSimulator.Engine;
+﻿using System;
+using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Project.Actors;
 
@@ -8,13 +9,25 @@ namespace MonsterFightSimulator.Project
     {
         public MonsterFightGame(Vector2Int gameSize) : base(gameSize) { }
 
+        public static Race Orc;
+        public static Race Troll;
+        public static Race Goblin;
+
+        public static Random Random = new Random();
+
         protected override void Setup()
         {
-            ActorTest actor = GameObject.InitializeAtPosition<ActorTest>(new Vector2Int(10, 10));
-            CurrentRoom.AddGameObject(1, actor);            
-            ActorTextBox text = GameObject.InitializeAtPosition<ActorTextBox>(new Vector2Int(10, 10));
-            CurrentRoom.AddGameObject(2, text);
-            CurrentRoom.AddSpriteObject(3, new Vector2Int(20, 10), SpriteDatabase.SprTest2);
+            Orc    = new Race("Ork");
+            Troll  = new Race("Troll");
+            Goblin = new Race("Goblin");
+
+            //CurrentRoom.AddSpriteObject(1, Camera.Size/2, SpriteDatabase.SprTitle);
+            
+            ActorTitle title = GameObject.InitializeAtPosition<ActorTitle>(Camera.Size/2);
+            CurrentRoom.AddGameObject(5, title);
+            
+            //ActorFighterCreateMenu fighterCreateMenu = GameObject.InitializeAtPosition<ActorFighterCreateMenu>(new Vector2Int(2, 1));
+            //CurrentRoom.AddGameObject(5, fighterCreateMenu);
         }
     }
 }

@@ -3,7 +3,7 @@
     public class Transform
     {
         public Transform() { }
-        public Transform(Vector2Int position) { Position = position; }
-        public Vector2Int Position { get; set; } = Vector2Int.Zero;
+        public Transform(Vector2 position) { Position = position; }
+        public Vector2 Position { get; set; } = Vector2.Zero;
     }
 }

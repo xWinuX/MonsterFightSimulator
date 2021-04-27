@@ -39,7 +39,7 @@ namespace MonsterFightSimulator.Engine.Rendering
         
         public void RenderOn(Vector2Int position, IRenderable renderable)
         {
-            _applicationSurface.RenderOn(position - _camera.Position - renderable.Origin, renderable);
+            _applicationSurface.RenderOn(position - (Vector2Int)_camera.Position - renderable.Origin, renderable);
         }
 
         public void Prepare()

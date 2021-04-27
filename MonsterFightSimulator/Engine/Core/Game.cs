@@ -20,12 +20,16 @@ namespace MonsterFightSimulator.Engine.Core
         public bool Quit { get; set; }
         public float DeltaTime { get; private set; }
         public Room CurrentRoom { get; private set; }
-
         public Camera Camera { get; }
-
         public Renderer Renderer { get; }
+        public Random Random { get; } = new Random();
+        public float ElapsedTime => (float)_elapsedTime.Elapsed.TotalMilliseconds;
         
         public List<ConsoleKey> PressedKeys { get; } = new List<ConsoleKey>();
+        public string KeyString = "";
+        
+        public void ClearKeyString() { KeyString = ""; }
+
         
         private readonly Stopwatch _elapsedTime;
         private          double    _currentTime;
@@ -60,7 +64,20 @@ namespace MonsterFightSimulator.Engine.Core
         private void GetInput()
         {
             PressedKeys.Clear();
-            while (Console.KeyAvailable) { PressedKeys.Add(Console.ReadKey(true).Key); }
+            while (Console.KeyAvailable)
+            {
+                // Get Pressed Keys
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                PressedKeys.Add(keyInfo.Key);
+                
+                // Fill KeyString
+                if (keyInfo.Key == ConsoleKey.Backspace) // Delete from KeyString if backspace was pressed
+                {
+                    // Check if string is empty
+                    if (KeyString.Length > 0) { KeyString = KeyString.Remove(KeyString.Length - 1);}
+                }
+                else { KeyString += keyInfo.KeyChar; } // Just add the char to KeyString
+            }
         }
 
         private void Update()

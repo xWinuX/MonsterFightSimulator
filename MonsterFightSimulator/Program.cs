@@ -5,6 +5,6 @@ namespace MonsterFightSimulator
 {
     public static class Program
     {
-        private static void Main() { new MonsterFightGame(new Vector2Int(50, 20)).Run(); }
+        private static void Main() { new MonsterFightGame(new Vector2(80, 30)).Run(); }
     }
 }

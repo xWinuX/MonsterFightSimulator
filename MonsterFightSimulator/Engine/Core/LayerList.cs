@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MonsterFightSimulator.Engine
+namespace MonsterFightSimulator.Engine.Core
 {
     public class LayerList
     {
