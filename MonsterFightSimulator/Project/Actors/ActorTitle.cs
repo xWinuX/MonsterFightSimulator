@@ -3,6 +3,7 @@ using System.Timers;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
+using MonsterFightSimulator.Project.Rooms;
 
 namespace MonsterFightSimulator.Project.Actors
 {
@@ -27,7 +28,7 @@ namespace MonsterFightSimulator.Project.Actors
         {
             base.Update();
 
-            Transform.Position = _originalPosition + Vector2.Up * (MathF.Sin(Game.ElapsedTime*0.005f));
+            Transform.Position  =  _originalPosition + Vector2.Up * (MathF.Sin(Game.ElapsedTime*0.005f));
         }
 
         public override void Render()

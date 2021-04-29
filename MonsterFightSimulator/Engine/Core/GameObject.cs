@@ -23,18 +23,12 @@ namespace MonsterFightSimulator.Engine.Core
         public Sprite Sprite{ get; set; }
 
         private static int _idCount;
-
-        public static T InitializeAtPosition<T>(Vector2 position) where T : GameObject, new()
-        {
-            T gameObject = new T();
-            gameObject.Transform.Position = position;
-            return gameObject;
-        }
-
+        
         protected T Instantiate<T>(int depth, Vector2 position) where T : GameObject, new()
         {
             T gameObject = new T();
             gameObject.Transform.Position = position;
+            gameObject.Start();
             Game.CurrentRoom.AddGameObject(depth, gameObject);
             return gameObject;
         }

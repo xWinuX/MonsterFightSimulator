@@ -26,6 +26,14 @@ namespace MonsterFightSimulator.Engine.Core
             }
         }
 
+        public void Start()
+        {
+            foreach (KeyValuePair<int, List<GameObject>> layer in _list)
+            {
+                foreach(GameObject layerItem in layer.Value) { layerItem.Start(); }
+            }  
+        }
+        
         public void Update()
         {
             foreach (KeyValuePair<int, List<int>> layer in _delete)

@@ -49,6 +49,6 @@ namespace MonsterFightSimulator.Project
                 "                                                            "
             }
         });
-        public static Sprite SprTitle=> new Sprite(DataSprTitle);
+        public static Sprite SprTitle => new Sprite(DataSprTitle);
     }
 }
