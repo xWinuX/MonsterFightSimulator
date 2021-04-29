@@ -4,33 +4,12 @@ namespace MonsterFightSimulator.Project
 {
     public static class SpriteDatabase
     {
-        private static readonly SpriteData DataSprTest = new SpriteData(3f, new[]
+        private static readonly SpriteData DataSprSelector = new SpriteData(1f, OriginHelper.Preset.TopRight, new[]
         {
-            new[]
-            {
-                " o ",
-                "/O\\",
-                " ^"
-            },
-
-            new[]
-            {
-                " o ",
-                "|O|",
-                " | "
-            }
+            new[] { ">" }
         });
-        public static Sprite SprTest => new Sprite(DataSprTest);
+        public static Sprite SprSelector => new Sprite(DataSprSelector);
 
-        private static readonly SpriteData DataSprTest2 = new SpriteData(1f, new[]
-        {
-            new[]
-            {
-                "MMM____MMM",
-                "MMM____MMM"
-            }
-        });
-        public static Sprite SprTest2 => new Sprite(DataSprTest2);        
         
         private static readonly SpriteData DataSprTitle = new SpriteData(1f, OriginHelper.Preset.MiddleCenter,new[]
         {

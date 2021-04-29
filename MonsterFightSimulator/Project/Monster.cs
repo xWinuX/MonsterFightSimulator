@@ -2,14 +2,14 @@
 {
     public class Monster
     {
-        public Monster(string name, Race race, MonsterStats monsterStats)
+        public Monster(string name, Race race, Stats stats)
         {
-            Name         = name;
-            Race         = race;
-            MonsterStats = monsterStats;
+            Name  = name;
+            Race  = race;
+            Stats = stats;
         }
 
-        public MonsterStats MonsterStats { get; }
+        public Stats Stats { get; }
 
         public string Name { get; }
 

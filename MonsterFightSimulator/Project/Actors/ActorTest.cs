@@ -8,7 +8,7 @@ namespace MonsterFightSimulator.Project.Actors
     {
         public ActorTest()
         {
-            Sprite = SpriteDatabase.SprTest;
+            Sprite = SpriteDatabase.SprSelector;
         }
         
         public override void Update()

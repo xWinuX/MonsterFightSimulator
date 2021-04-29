@@ -7,9 +7,9 @@ namespace MonsterFightSimulator.Project.Actors
 
         public ActorMonster()
         {
-            _monster = new Monster( _names[Game.Random.Next(0, _names.Length-1)], 
-                Race.GetRandomFromExisting(Game.Random),
-                MonsterStats.GetRandom(Game.Random));
+            //_monster = new Monster( _names[Game.Random.Next(0, _names.Length-1)], 
+            //    Race.GetRandomFromExisting(Game.Random),
+            //    Stats.GetRandom(Game.Random));
         }
         private Monster _monster;
 

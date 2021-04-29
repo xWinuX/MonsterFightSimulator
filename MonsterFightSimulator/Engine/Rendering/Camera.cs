@@ -11,7 +11,7 @@ namespace MonsterFightSimulator.Engine.Rendering
 
         public void SetTarget(Vector2 target)
         {
-            Position = new Vector2(target.X - (Size.X / 2), target.Y - (Size.Y / 2));
+            Position = new Vector2(target.X - (Size.X / 2f), target.Y - (Size.Y / 2f));
         }
 
         public Vector2 Position { get; set; } = Vector2.Zero;

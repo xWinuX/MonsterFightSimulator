@@ -14,15 +14,25 @@ namespace MonsterFightSimulator.Project.Actors
             StatsSelection
         }
 
-        public ActorFighterCreateMenu() { _menuPoints = Race.GetNamesFromExisting(); }
+        public ActorFighterCreateMenu()
+        {
+            _menuPoints     = Race.GetNamesFromExisting();
+        }
 
+        private ActorSelector _selector;
+        
         private MenuState _currentState = MenuState.RaceSelection;
         private string[]  _menuPoints;
-        private int       _selectorPosition = 0;
 
         private string       _fighterName;
         private Race         _fighterRace;
-        private MonsterStats _monsterStats;
+        private Stats _stats;
+
+        public override void Start()
+        {
+            _selector       = Instantiate<ActorSelector>(1, Transform.Position + Vector2.Down);
+            _selector.Limit = new Vector2Int(0, 3);
+        }
 
         public override void Update()
         {
@@ -33,16 +43,18 @@ namespace MonsterFightSimulator.Project.Actors
                 switch (_currentState)
                 {
                     case MenuState.RaceSelection:
-                        _fighterRace      = Race.List[_selectorPosition];
+                        _fighterRace      = Race.List[_selector.Position.Y];
                         _currentState     = MenuState.Naming;
-                        _selectorPosition = 0;
+                        _selector.Enabled = false;
+                        _selector.ResetPosition();
                         Game.ClearKeyString();
                         break;
 
                     case MenuState.Naming:
-                        _fighterName  = Game.KeyString;
-                        _currentState = MenuState.StatsSelection;
-                        _monsterStats = new MonsterStats();
+                        _fighterName      = Game.KeyString;
+                        _currentState     = MenuState.StatsSelection;
+                        //_stats     = new Stats();
+                        _selector.Enabled = true;
                         break;
 
                     case MenuState.StatsSelection:
@@ -52,10 +64,6 @@ namespace MonsterFightSimulator.Project.Actors
 
             switch (_currentState)
             {
-                case MenuState.RaceSelection:
-                    ControlSelector();
-                    break;
-
                 case MenuState.Naming:
                     _menuPoints = new[] {Game.KeyString};
                     break;
@@ -63,28 +71,14 @@ namespace MonsterFightSimulator.Project.Actors
                 case MenuState.StatsSelection:
                     _menuPoints = new[]
                     {
-                        _monsterStats.Health.ToString(CultureInfo.InvariantCulture), 
-                        _monsterStats.Attack.ToString(CultureInfo.InvariantCulture), 
-                        _monsterStats.Defense.ToString(CultureInfo.InvariantCulture)
+                        _stats.Health.ToString(CultureInfo.InvariantCulture), 
+                        _stats.Attack.ToString(CultureInfo.InvariantCulture), 
+                        _stats.Defense.ToString(CultureInfo.InvariantCulture)
                     };
-                    ControlSelector();
                     break;
             }
         }
-
-        private void ControlSelector()
-        {
-            // Increase/Decrease with input
-            _selectorPosition += Utility.BoolToInt32(InputDown(ConsoleKey.S)) - Utility.BoolToInt32(InputDown(ConsoleKey.W));
-
-            // Wrap values between 0 and the amount of menu points
-            _selectorPosition = (int)MyMathF.Wrap(_selectorPosition, 0, _menuPoints.Length);
-        }
-
-        private void RenderSelector()
-        {
-            RenderStringAt((Transform.Position + Vector2.Left) + (Vector2.Down + (Vector2.Down * _selectorPosition)), StringToTexture(">"));
-        }
+        
 
         public override void Render()
         {
@@ -93,7 +87,13 @@ namespace MonsterFightSimulator.Project.Actors
             {
                 case MenuState.RaceSelection:
                     RenderStringAt(Transform.Position, StringToTexture("Select a Race for your Fighter:"));
-                    RenderSelector();
+                    RenderStringAt(Transform.Position + new Vector2(10f, 1f), new []
+                    {
+                        Race.List[_selector.Position.Y].RangeProfile.HealthRange.ToString(),
+                        Race.List[_selector.Position.Y].RangeProfile.AttackRange.ToString(),
+                        Race.List[_selector.Position.Y].RangeProfile.DefenseRange.ToString(),
+                        Race.List[_selector.Position.Y].RangeProfile.SpeedRange.ToString(),
+                    });
                     break;
 
                 case MenuState.Naming:
@@ -102,12 +102,11 @@ namespace MonsterFightSimulator.Project.Actors
 
                 case MenuState.StatsSelection:
                     RenderStringAt(Transform.Position, StringToTexture("Configure your Fighters Stats"));
-                    RenderSelector();
                     break;
             }
 
             // Render List
-            RenderStringAt(Transform.Position + Vector2.Down, _menuPoints);
+            RenderStringAt(Transform.Position + Vector2.Down + Vector2.Right, _menuPoints);
         }
     }
 }

@@ -21,29 +21,31 @@ namespace MonsterFightSimulator.Engine
         
         public void DestroyObject(GameObject gameObject) { _layerList.Remove(gameObject); }
 
+        public void AddGameObject(int depth, GameObject gameObject)
+        {
+            gameObject.Game = Game;
+            
+            if (_firstUpdate) {_layerList.AddDirectly(depth, gameObject);}
+            else { _layerList.Add(depth, gameObject);}
+        }
+
         public void AddGameObject<T>(int depth, Vector2Int position) where T : GameObject, new()
         {
             GameObject gameObject = new T();
             gameObject.Transform.Position = position;
             AddGameObject(depth, gameObject);
         }
-        
-        public void AddGameObject(int depth, GameObject gameObject)
-        {
-            gameObject.Game = Game;
-            _layerList.Add(depth, gameObject);
-        }           
-        
+
         public void AddSpriteObject(int depth, Vector2Int position, SpriteData spriteData)
         {
             SpriteObject spriteObject = new SpriteObject(position, spriteData) {Game = Game};
-            _layerList.Add(depth, spriteObject);
+            AddGameObject(depth, spriteObject);
         }
 
         public void AddSpriteObject(int depth, Vector2Int position, Sprite sprite)
         {
             SpriteObject spriteObject = new SpriteObject(position, sprite) {Game = Game};
-            _layerList.Add(depth, spriteObject);
+            AddGameObject(depth, spriteObject);
         }
 
         public void Render() { _layerList.Render(); }
@@ -52,8 +54,8 @@ namespace MonsterFightSimulator.Engine
         {
             if (_firstUpdate)
             {
-                _layerList.Start();
                 _firstUpdate = false;
+                _layerList.Start();
             }
 
             _layerList.Update();

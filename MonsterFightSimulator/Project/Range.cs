@@ -12,9 +12,9 @@ namespace MonsterFightSimulator.Project
         
         public float MinValue { get; }
         public float MaxValue { get; }
-        
-        public readonly float GetRandomBetween() { return GetRandomBetween(new Random()); }
-        
+
         public readonly float GetRandomBetween(Random random) { return MinValue + (MaxValue - MinValue) * (float) random.NextDouble(); }
+
+        public override string ToString() => MinValue + "-" + MaxValue;
     }
 }

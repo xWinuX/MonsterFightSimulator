@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using MonsterFightSimulator.Engine.Rendering;
-using MonsterFightSimulator.Project.Rooms;
 
 namespace MonsterFightSimulator.Engine.Core
 {
@@ -16,27 +15,33 @@ namespace MonsterFightSimulator.Engine.Core
             _elapsedTime = Stopwatch.StartNew();
             
             RoomGoto<Room>();
+            
+            CheckForRoomChange();
         }
-        
+
         public bool Quit { get; set; }
         public float DeltaTime { get; private set; }
+        public float ElapsedTime => (float)_elapsedTime.Elapsed.TotalMilliseconds;
+        public string KeyString { get; private set; } = "";
+
+        public List<ConsoleKey> PressedKeys { get; } = new List<ConsoleKey>();
+
+        public Random Random { get; } = new Random();
+
         public Room CurrentRoom { get; protected set; }
-        
         public Camera Camera { get; }
         public Renderer Renderer { get; }
-        public Random Random { get; } = new Random();
-        public float ElapsedTime => (float)_elapsedTime.Elapsed.TotalMilliseconds;
         
-        public List<ConsoleKey> PressedKeys { get; } = new List<ConsoleKey>();
-        public string KeyString = "";
         
-        public void ClearKeyString() { KeyString = ""; }
-        
+        private Room _newRoom;
+
         private readonly Stopwatch _elapsedTime;
         private          double    _currentTime;
 
-        private readonly List<Room> _roomList = new List<Room>();
-        
+        public void ClearKeyString() => KeyString = "";
+
+        public void RoomGoto<T>() where T : Room, new() => _newRoom = new T {Game = this}; // This isn't optimal...
+
         public void Run()
         {
             Setup();
@@ -46,25 +51,16 @@ namespace MonsterFightSimulator.Engine.Core
                 CalculateDeltaTime();
 
                 GetInput();
-
+                
                 Update();
 
                 Render();
+
+                CheckForRoomChange();
             }
         }
 
-
-        public void RoomGoto<T>() where T : Room, new()
-        {
-            CurrentRoom?.Reset();
-
-            CurrentRoom = new T {Game = this}; // this isn't optimal...
-            
-            CurrentRoom.Setup();
-        }
-
         protected virtual void Setup() { }
-
 
         private void CalculateDeltaTime()
         {
@@ -91,7 +87,18 @@ namespace MonsterFightSimulator.Engine.Core
                 else { KeyString += keyInfo.KeyChar; } // Just add the char to KeyString
             }
         }
-        
+
+        private void CheckForRoomChange()
+        {
+            if (_newRoom != null)
+            {
+                CurrentRoom = _newRoom;
+
+                CurrentRoom.Setup();
+
+                _newRoom = null;
+            }
+        }
         
         private void Update()
         {

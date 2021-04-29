@@ -8,6 +8,7 @@ namespace MonsterFightSimulator.Engine.Rendering
         {
             TopLeft,
             MiddleCenter,
+            TopRight,
         }
 
         public enum AxisX
@@ -30,6 +31,7 @@ namespace MonsterFightSimulator.Engine.Rendering
             {
                 Preset.TopLeft => CalculateOrigin(size, AxisX.Left, AxisY.Top),
                 Preset.MiddleCenter => CalculateOrigin(size, AxisX.Middle, AxisY.Center),
+                Preset.TopRight => CalculateOrigin(size, AxisX.Right, AxisY.Top),
                 _ => Vector2Int.Zero
             };   
         }

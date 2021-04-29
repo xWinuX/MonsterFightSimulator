@@ -18,6 +18,7 @@ namespace MonsterFightSimulator.Engine
         }
 
         public void RenderSpriteAt(Vector2Int position, SpriteData spriteData) { Game.Renderer.RenderOn(position, new Sprite(spriteData)); }
+        public void RenderSpriteAt(Vector2Int position, Sprite sprite) { Game.Renderer.RenderOn(position, sprite); }
 
         public void RenderSpriteAt(Vector2Int position, SpriteData spriteData, float frameIndex)
         {

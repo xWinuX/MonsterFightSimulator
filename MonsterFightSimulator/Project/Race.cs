@@ -1,35 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MonsterFightSimulator.Project
 {
     public class Race
     {
-        public Race(string name)
+        static Race()
         {
-            Name = name;
-            List.Add(this);
+            List = new List<Race>();
+
+            Goblin = new Race("Goblin", new StatsRangeProfile(
+                new Range(1, 20),
+                new Range(2, 3),
+                new Range(0, 1),
+                new Range(5, 10)
+            ));
+
+            Human = new Race("Human", new StatsRangeProfile(
+                new Range(1, 30),
+                new Range(2, 3),
+                new Range(1, 3),
+                new Range(3, 6)
+            ));
+
+            Orc = new Race("Ork", new StatsRangeProfile(
+                new Range(1, 50),
+                new Range(1, 2),
+                new Range(3, 5),
+                new Range(1, 3)
+            ));
         }
         
-        public string Name { get; }
-
-        public static List<Race> List = new List<Race>();
-
-        public static string[] GetNamesFromExisting()
+        private Race(string name, StatsRangeProfile rangeProfile)
         {
-            string[] str = new string[List.Count];
-            for (int i = 0; i < List.Count; i++)
-            {
-                Race race = List[i];
-                str[i] = race.Name;
-            }
-
-            return str;
+            Name         = name;
+            RangeProfile = rangeProfile;
+            List.Add(this);
         }
 
-        public static Race GetRandomFromExisting() { return GetRandomFromExisting(new Random()); }
+        public static List<Race> List { get; }
+
+        public static Race Orc { get; }
+        public static Race Human { get; }
+        public static Race Goblin { get; }
+
+        public string Name { get; }
+
+        public StatsRangeProfile RangeProfile { get; }
+
+        public static string[] GetNamesFromExisting() => List.Select(race => race.Name).ToArray();
         
         public static Race GetRandomFromExisting(Random random) { return List[random.Next(0, List.Count - 1)]; }
     }
-    
 }
