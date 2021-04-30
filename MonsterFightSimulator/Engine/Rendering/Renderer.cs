@@ -16,8 +16,7 @@ namespace MonsterFightSimulator.Engine.Rendering
         }
 
         private RenderSurface _applicationSurface = new RenderSurface(Vector2Int.Zero);
-        private RenderSurface _guiSurface         = new RenderSurface(Vector2Int.Zero);
-        
+
         private Camera _camera;
         
         private Vector2Int _windowSize;

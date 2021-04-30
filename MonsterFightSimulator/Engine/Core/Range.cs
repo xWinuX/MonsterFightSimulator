@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonsterFightSimulator.Project
+namespace MonsterFightSimulator.Engine.Core
 {
     public struct Range
     {

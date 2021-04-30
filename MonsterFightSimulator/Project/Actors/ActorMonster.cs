@@ -1,57 +1,66 @@
-﻿using MonsterFightSimulator.Engine;
+﻿using System;
+using MonsterFightSimulator.Engine;
+using MonsterFightSimulator.Engine.Core;
+using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Project.Actors
 {
     public class ActorMonster : Actor
     {
+        public string Name { get; }
 
-        public ActorMonster()
+        public Race Race { get; }
+
+        public Stats Stats { get; }
+        
+        private ActorHealthBar _healthBar;
+        
+        public ActorMonster(MonsterPrototype monsterPrototype)
         {
-            //_monster = new Monster( _names[Game.Random.Next(0, _names.Length-1)], 
-            //    Race.GetRandomFromExisting(Game.Random),
-            //    Stats.GetRandom(Game.Random));
+            Name  = monsterPrototype.Name;
+            Race  = monsterPrototype.Race;
+            Stats = monsterPrototype.Stats;
         }
-        private Monster _monster;
 
+        private float CalculateDamage(float damage) => Math.Max(damage /*- Stats.Defense*/, 0);
 
-        private string[] _names = new[]
+        public float ModifyHealth(float modify) { return modify < 0 ? TakeDamage(modify) : Heal(modify); }
+
+        public float Heal(float heal)
         {
-            "Lashonda Freshour",
-            "Ned Willaert",
-            "Gilma Dorton",
-            "Louisa Mcrae",
-            "Wm Shinn",
-            "Doyle Sly",
-            "Lin Mckittrick",
-            "Aimee Gathings",
-            "Rosendo Conforti",
-            "Claud Serfass",
-            "Arlinda Mooney",
-            "Cherry Litwin",
-            "Melonie Appleby",
-            "Salvador Aguon",
-            "Colette Pylant",
-            "Eleni Coppedge",
-            "Mitchell Debus",
-            "Heath Tang",
-            "Ambrose Dungan",
-            "Wai Kowal",
-            "Hayden Midgette",
-            "Annabell Holstein",
-            "Narcisa Marconi",
-            "Cherie Clow",
-            "Josephina Hoar",
-            "Carlee Stafford",
-            "Viva Tinkler",
-            "Veronika Keitt",
-            "Annalisa Bottorff",
-            "Carmela Bouie"
-        };
+            float previousHealth = Stats.Health;
+            Stats.Health = Math.Clamp(Stats.Health + MathF.Abs(heal), 0, Stats.HealthMax);
+            return Stats.Health - previousHealth;
+        }
+        
+        public float TakeDamage(float damage)
+        {
+            float actualDamage = CalculateDamage(MathF.Abs(damage));
+            Stats.Health = Math.Max(Stats.Health - actualDamage, 0);
+            return actualDamage;
+        }
+        
+        public override void Start()
+        {
+            _healthBar = new ActorHealthBar(Stats.Health, Stats.HealthMax);
+            Instantiate(0, Transform.Position + (Vector2.Up * 10f), _healthBar);
+        }
 
+        public override void Update()
+        {
+            base.Update();
+
+            float ver = Convert.ToInt32(InputDown(ConsoleKey.D)) - Convert.ToInt32(InputDown(ConsoleKey.A));
+
+            ModifyHealth(ver);
+            
+            _healthBar.UpdateValues(Stats.Health);
+            _healthBar.Transform.Position = Transform.Position + (Vector2.Up * 10f);
+        }
 
         public override void Render()
         {
-            RenderStringAt(Transform.Position, StringToTexture(_monster.Name));
+            RenderStringAt(Transform.Position, StringToTexture(Name), OriginHelper.Preset.MiddleCenter);
         }
     }
 }

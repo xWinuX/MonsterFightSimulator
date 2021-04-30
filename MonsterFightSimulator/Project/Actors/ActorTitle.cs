@@ -30,15 +30,15 @@ namespace MonsterFightSimulator.Project.Actors
 
             Transform.Position  =  _originalPosition + Vector2.Up * (MathF.Sin(Game.ElapsedTime*0.005f));
 
-            if (_showContinue && InputDown(ConsoleKey.Spacebar)) { Game.RoomGoto<RoomCharacterCreation>(); }
+            if (_showContinue && InputDown(ConsoleKey.Enter)) { Game.RoomGoto<RoomCharacterCreation>(); }
         }
 
         public override void Render()
         {
             base.Render();
 
-            RenderStringAt(new Vector2Int(Game.Camera.Size.X/2, Game.Camera.Size.Y-1), StringToTexture("By Edwin Baumann" + DateTime.Now), OriginHelper.Preset.MiddleCenter);
-            if (_showContinue) { RenderStringAt(_originalPosition + Vector2.Down * 10f, StringToTexture("Press Space to continue..."), OriginHelper.Preset.MiddleCenter); }
+            RenderStringAt(new Vector2Int(Game.Camera.Size.X/2, Game.Camera.Size.Y-1), StringToTexture("By Edwin Baumann"), OriginHelper.Preset.MiddleCenter);
+            if (_showContinue) { RenderStringAt(_originalPosition + Vector2.Down * 10f, StringToTexture("Press Enter to continue..."), OriginHelper.Preset.MiddleCenter); }
         }
     }
 }

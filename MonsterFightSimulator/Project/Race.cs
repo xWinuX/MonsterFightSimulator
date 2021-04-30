@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Range = MonsterFightSimulator.Engine.Core.Range;
 
 namespace MonsterFightSimulator.Project
 {

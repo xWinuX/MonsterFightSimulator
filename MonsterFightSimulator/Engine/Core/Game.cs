@@ -23,6 +23,7 @@ namespace MonsterFightSimulator.Engine.Core
         public float DeltaTime { get; private set; }
         public float ElapsedTime => (float)_elapsedTime.Elapsed.TotalMilliseconds;
         public string KeyString { get; private set; } = "";
+        public int KeyStringLimit { get; set; } = 10;
 
         public List<ConsoleKey> PressedKeys { get; } = new List<ConsoleKey>();
 
@@ -31,7 +32,6 @@ namespace MonsterFightSimulator.Engine.Core
         public Room CurrentRoom { get; protected set; }
         public Camera Camera { get; }
         public Renderer Renderer { get; }
-        
         
         private Room _newRoom;
 
@@ -77,14 +77,17 @@ namespace MonsterFightSimulator.Engine.Core
                 // Get Pressed Keys
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                 PressedKeys.Add(keyInfo.Key);
-                
+
+                // Skip enter
+                if (keyInfo.Key == ConsoleKey.Enter) { continue; }
+
                 // Fill KeyString
                 if (keyInfo.Key == ConsoleKey.Backspace) // Delete from KeyString if backspace was pressed
                 {
                     // Check if string is empty
                     if (KeyString.Length > 0) { KeyString = KeyString.Remove(KeyString.Length - 1);}
                 }
-                else { KeyString += keyInfo.KeyChar; } // Just add the char to KeyString
+                else if (KeyString.Length < KeyStringLimit) { KeyString += keyInfo.KeyChar; } // Just add the char to KeyString if it isn't over the limit
             }
         }
 
@@ -92,6 +95,8 @@ namespace MonsterFightSimulator.Engine.Core
         {
             if (_newRoom != null)
             {
+                CurrentRoom?.RoomEnd();
+                
                 CurrentRoom = _newRoom;
 
                 CurrentRoom.Setup();
@@ -108,7 +113,9 @@ namespace MonsterFightSimulator.Engine.Core
         private void Render()
         {
             Renderer.Prepare();
+            
             CurrentRoom.Render();
+            
             Renderer.Display();
         }
     }

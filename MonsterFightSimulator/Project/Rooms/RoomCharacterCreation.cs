@@ -1,5 +1,4 @@
 ﻿using MonsterFightSimulator.Engine;
-using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Project.Actors;
 
 namespace MonsterFightSimulator.Project.Rooms
@@ -8,8 +7,7 @@ namespace MonsterFightSimulator.Project.Rooms
     {
         public override void Setup()
         {
-            AddGameObject<ActorFighterCreateMenu>(1, Vector2Int.One * 5);
-
+            AddGameObject<ActorFighterCreateMenu>(1, Game.Camera.Size/2);
         }
     }
 }

@@ -8,13 +8,9 @@ namespace MonsterFightSimulator.Engine.Core
         {
             Id = _idCount;
             _idCount++;
-
-            Name = "Actor" + Id.ToString();
         }
 
         public int Id { get; }
-
-        public string Name { get; }
 
         public Transform Transform { get; } = new Transform();
 
@@ -27,10 +23,16 @@ namespace MonsterFightSimulator.Engine.Core
         protected T Instantiate<T>(int depth, Vector2 position) where T : GameObject, new()
         {
             T gameObject = new T();
+            Instantiate(depth, position, gameObject);
+            return gameObject;
+        }
+        
+        protected void Instantiate(int depth, Vector2 position, GameObject gameObject)
+        {
+            gameObject.Game               = Game;
             gameObject.Transform.Position = position;
             gameObject.Start();
             Game.CurrentRoom.AddGameObject(depth, gameObject);
-            return gameObject;
         }
 
         protected void Destroy(GameObject gameObject) { Game.CurrentRoom.DestroyObject(gameObject); }
@@ -38,6 +40,8 @@ namespace MonsterFightSimulator.Engine.Core
         public virtual void Start() { }
 
         public virtual void Update() { }
+
+        public virtual void RoomEnd() { }
 
         public virtual void Render() { }
     }

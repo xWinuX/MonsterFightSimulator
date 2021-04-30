@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
+using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Project.Actors
 {
@@ -29,7 +30,7 @@ namespace MonsterFightSimulator.Project.Actors
         }
         private Vector2Int _sizeMin = Vector2Int.Zero;
 
-        private Vector2Int Size
+        public Vector2Int Size
         {
             get
             {
@@ -108,7 +109,7 @@ namespace MonsterFightSimulator.Project.Actors
             }
 
             // Render TextBox
-            RenderStringAt(Transform.Position, drawString);
+            RenderStringAt(Transform.Position, drawString, OriginHelper.Preset.MiddleCenter);
         }
     }
 }

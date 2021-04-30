@@ -29,11 +29,12 @@ namespace MonsterFightSimulator.Engine
             else { _layerList.Add(depth, gameObject);}
         }
 
-        public void AddGameObject<T>(int depth, Vector2Int position) where T : GameObject, new()
+        public T AddGameObject<T>(int depth, Vector2Int position) where T : GameObject, new()
         {
-            GameObject gameObject = new T();
+            T gameObject = new T();
             gameObject.Transform.Position = position;
             AddGameObject(depth, gameObject);
+            return gameObject;
         }
 
         public void AddSpriteObject(int depth, Vector2Int position, SpriteData spriteData)
@@ -60,5 +61,7 @@ namespace MonsterFightSimulator.Engine
 
             _layerList.Update();
         }
+
+        public void RoomEnd() { _layerList.RoomEnd(); }
     }
 }

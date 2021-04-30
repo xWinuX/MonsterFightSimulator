@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MonsterFightSimulator.Engine.Core
 {
@@ -32,13 +33,7 @@ namespace MonsterFightSimulator.Engine.Core
             }
         }
 
-        public void Start()
-        {
-            foreach (KeyValuePair<int, List<GameObject>> layer in _list)
-            {
-                foreach(GameObject layerItem in layer.Value) { layerItem.Start(); }
-            }  
-        }
+        public void Start() { foreach (GameObject layerItem in _list.SelectMany(layer => layer.Value)) { layerItem.Start(); } }
         
         public void Update()
         {
@@ -62,18 +57,11 @@ namespace MonsterFightSimulator.Engine.Core
 
 
             // Update all objects
-            foreach (KeyValuePair<int, List<GameObject>> layer in _list)
-            {
-                foreach(GameObject layerItem in layer.Value) { layerItem.Update(); }
-            }
+            foreach (GameObject layerItem in _list.SelectMany(layer => layer.Value)) { layerItem.Update(); }
         }
-        
-        public void Render()
-        {
-            foreach(KeyValuePair<int, List<GameObject>> layer in _list)
-            {
-                foreach(GameObject layerItem in layer.Value) { layerItem.Render(); }
-            }
-        }
+
+        public void Render() { foreach (GameObject layerItem in _list.SelectMany(layer => layer.Value)) { layerItem.Render(); } }
+
+        public void RoomEnd() { foreach (GameObject layerItem in _list.SelectMany(layer => layer.Value)) { layerItem.RoomEnd(); } }
     }
 }

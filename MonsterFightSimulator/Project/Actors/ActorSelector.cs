@@ -30,8 +30,8 @@ namespace MonsterFightSimulator.Project.Actors
             {
                 // Increase/Decrease with input
                 _position += new Vector2Int(
-                    Utility.BoolToInt32(InputDown(ConsoleKey.D)) - Utility.BoolToInt32(InputDown(ConsoleKey.A)),
-                    Utility.BoolToInt32(InputDown(ConsoleKey.S)) - Utility.BoolToInt32(InputDown(ConsoleKey.W))
+                    Convert.ToInt32(InputDown(ConsoleKey.D)) - Convert.ToInt32(InputDown(ConsoleKey.A)),
+                    Convert.ToInt32(InputDown(ConsoleKey.S)) - Convert.ToInt32(InputDown(ConsoleKey.W))
                 );
             }
 
