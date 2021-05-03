@@ -31,11 +31,11 @@ namespace MonsterFightSimulator.Project
         {
             new[]
             {
-                "  ^                   ",
-                "< v >  Move Cursor    ",
-                "                      ",
-                " Enter                ",
-                " <--'  Confirm/Select "
+                "  ^                 ",
+                "< v >  Move Cursor  ",
+                "                    ",
+                "Enter               ",
+                "<--'  Confirm/Select"
             }
         });
 

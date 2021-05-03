@@ -159,7 +159,7 @@ namespace MonsterFightSimulator.Project.Actors
 
                 case MenuState.StatsSelection:
                     // Display title
-                    RenderStringAt(Transform.Position, StringToTexture("Configure your Fighters Stats"), OriginHelper.Preset.MiddleCenter);
+                    RenderStringAt(Transform.Position, StringToTexture("Configure your Fighters Stats (< > to increase/decrease)"), OriginHelper.Preset.MiddleCenter);
                     
                     // Display stat name
                     RenderStringAt(Transform.Position + Vector2.Down * 4f + Vector2.Left * 7f, new[]

@@ -1,4 +1,6 @@
-﻿namespace MonsterFightSimulator.Project.Classes
+﻿using System;
+
+namespace MonsterFightSimulator.Project.Classes
 {
     public enum StatType
     {
@@ -44,7 +46,8 @@
                     StatType.Attack    => Attack,
                     StatType.Defense   => Defense,
                     StatType.Speed     => Speed,
-                    StatType.HealthMax => HealthMax
+                    StatType.HealthMax => HealthMax,
+                    _ => throw new ArgumentOutOfRangeException(nameof(t), t, null)
                 };
             }
             set
@@ -56,6 +59,7 @@
                     case StatType.Defense:   Defense   = value; break;
                     case StatType.Speed:     Speed     = value; break;
                     case StatType.HealthMax: HealthMax = value; break;
+                    default: throw new ArgumentOutOfRangeException(nameof(t), t, null);
                 }
             }
         }

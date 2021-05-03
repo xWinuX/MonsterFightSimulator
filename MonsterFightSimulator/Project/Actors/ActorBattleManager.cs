@@ -4,6 +4,7 @@ using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
 using MonsterFightSimulator.Project.Classes;
+using MonsterFightSimulator.Project.Rooms;
 
 namespace MonsterFightSimulator.Project.Actors
 {
@@ -64,43 +65,48 @@ namespace MonsterFightSimulator.Project.Actors
         public override void Update()
         {
             // If current textbox is finished and user wants to advance calculate next turn
-            if (_textBox.Finished && InputDown(ConsoleKey.Enter) && !_finished)
+            if (_textBox.Finished && InputDown(ConsoleKey.Enter))
             {
-                // Check if the amount of monsters is 2 in case we want to battle more (if time to implement)
-                if (_monsterList.Count == 2)
+                if (!_finished)
                 {
-                    // Get index of the current monster
-                    int index = _roundQueue[_roundQueuePosition];
-
-                    // Evaluate current and target monster
-                    ActorMonster currentMonster = _monsterList[index];
-                    ActorMonster targetMonster  = _monsterList[index ^ 1];
-
-                    // Attack the target monster and save dealt damage
-                    float damageDone = currentMonster.Attack(targetMonster);
-                
-                    // Reset the textbox and display the dealt damage
-                    _textBox.Reset();
-                    _textBox.AddNew(currentMonster.Name + " dealt " + damageDone + " damage to " + targetMonster.Name);
-
-                    // If the other monster is dead end the battle and return
-                    if (targetMonster.Dead)
+                    // Check if the amount of monsters is 2 in case we want to battle more (if time to implement)
+                    if (_monsterList.Count == 2)
                     {
-                        _textBox.Add(targetMonster.Name + " is dead!");
-                        _textBox.Add(currentMonster.Name + " won the Fight!");
-                        _textBox.Add("Battle lasted " + _round + " " + (_round == 1 ? "round" : "rounds"));
-                        _finished = true;
-                        return;
+                        // Get index of the current monster
+                        int index = _roundQueue[_roundQueuePosition];
+
+                        // Evaluate current and target monster
+                        ActorMonster currentMonster = _monsterList[index];
+                        ActorMonster targetMonster  = _monsterList[index ^ 1];
+
+                        // Attack the target monster and save dealt damage
+                        float damageDone = currentMonster.Attack(targetMonster);
+
+                        // Reset the textbox and display the dealt damage
+                        _textBox.Reset();
+                        _textBox.AddNew(currentMonster.Name + " dealt " + damageDone + " damage to " + targetMonster.Name);
+
+                        // If the other monster is dead end the battle and return
+                        if (targetMonster.Dead)
+                        {
+                            _textBox.Add(targetMonster.Name + " is dead!");
+                            _textBox.Add(currentMonster.Name + " won the Fight!");
+                            _textBox.Add("Battle lasted " + _round + " " + (_round == 1 ? "round" : "rounds"));
+                            _finished = true;
+                            return;
+                        }
+
+                        // If the roundQueue is over increase the round counter and start a new one
+                        if (_roundQueuePosition < _roundQueue.Count - 1) { _roundQueuePosition++; }
+                        else
+                        {
+                            _roundQueuePosition = 0;
+                            _round++;
+                        }
+
                     }
-                    
-                    // If the roundQueue is over increase the round counter and start a new one
-                    if (_roundQueuePosition < _roundQueue.Count - 1) { _roundQueuePosition++;  }
-                    else
-                    {
-                        _roundQueuePosition = 0;
-                        _round++;
-                    }
-                } 
+                }
+                else { Game.RoomGoto<RoomCharacterCreation>(); } // Restart whole process again
             }
         }
 
