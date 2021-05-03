@@ -65,11 +65,7 @@ namespace MonsterFightSimulator.Engine.Rendering
                 string line = _applicationSurface.Texture[i];
                 // Check if it's last line, if true only write without new line (fixes jittering if windowSize == cameraSize)
                 if (i == _applicationSurface.Texture.Length - 1) { Console.Write(line); }
-                else
-                {
-                    Console.Write(line);
-                    Console.WriteLine("");
-                }
+                else { Console.WriteLine(line); }
             }
         }
     }
