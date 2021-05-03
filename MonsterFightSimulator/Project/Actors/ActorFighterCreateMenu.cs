@@ -76,7 +76,7 @@ namespace MonsterFightSimulator.Project.Actors
                         _selector.Limit      = new Vector2Int(0, 4);
                         
                         // Prepare for StatsSelection
-                        CurrentFighter.Stats = new Stats(CurrentFighter.Race.RangeProfile);
+                        CurrentFighter.Stats = new Stats();
                         
                         // Change to next menu
                         _currentState        = MenuState.StatsSelection;
@@ -111,12 +111,12 @@ namespace MonsterFightSimulator.Project.Actors
 
                 case MenuState.StatsSelection:
                     // Position selector
-                    _selector.Transform.Position = Transform.Position + Vector2.Down * 2f + Vector2.Left * 13f;
+                    _selector.Transform.Position = Transform.Position + Vector2.Down * 2f + Vector2.Left * 7f;
                     
                     // Select and increase/decrease stats
                     StatType statType = (StatType) _selector.Position.Y;
                     CurrentFighter.Stats[statType] += Convert.ToInt32(InputDown(ConsoleKey.RightArrow)) - Convert.ToInt32(InputDown(ConsoleKey.LeftArrow));
-                    CurrentFighter.Stats[statType] =  MyMathF.Clamp(CurrentFighter.Stats[statType], CurrentFighter.Race.RangeProfile[statType]);
+                    CurrentFighter.Stats[statType] =  Math.Max(CurrentFighter.Stats[statType], 1);
                     break;
             }
         }
@@ -132,15 +132,6 @@ namespace MonsterFightSimulator.Project.Actors
 
                     // Display races
                     RenderStringAt(Transform.Position + Vector2.Down * 3f, _races.Select(x => x.Name).ToArray(), OriginHelper.Preset.MiddleCenter);
-                    
-                    // Display ranges
-                    RenderStringAt(Transform.Position + Vector2.Down * 10f, new[]
-                    {
-                        "Health:  " + _races[_selector.Position.Y].RangeProfile.HealthRange,
-                        "Attack:  " + _races[_selector.Position.Y].RangeProfile.AttackRange,
-                        "Defense  " + _races[_selector.Position.Y].RangeProfile.DefenseRange,
-                        "Speed:   " + _races[_selector.Position.Y].RangeProfile.SpeedRange
-                    }, OriginHelper.Preset.MiddleCenter);
                     break;
 
                 case MenuState.Naming:
@@ -159,10 +150,10 @@ namespace MonsterFightSimulator.Project.Actors
 
                 case MenuState.StatsSelection:
                     // Display title
-                    RenderStringAt(Transform.Position, StringToTexture("Configure your Fighters Stats"), OriginHelper.Preset.MiddleCenter);
+                    RenderStringAt(Transform.Position, StringToTexture("Configure your Fighters Stats (< > to increase/decrease)"), OriginHelper.Preset.MiddleCenter);
                     
                     // Display stat name
-                    RenderStringAt(Transform.Position + Vector2.Down * 4f + Vector2.Left * 7f, new[]
+                    RenderStringAt(Transform.Position + Vector2.Down * 4f + Vector2.Left * 1f, new[]
                     {
                         "Health: ",
                         "Attack: ",
@@ -171,22 +162,13 @@ namespace MonsterFightSimulator.Project.Actors
                     }, OriginHelper.Preset.MiddleCenter);
 
                     // Display actual values
-                    RenderStringAt(Transform.Position + Vector2.Down * 2f + Vector2.Right * 1f, new[]
+                    RenderStringAt(Transform.Position + Vector2.Down * 2f + Vector2.Right * 5f, new[]
                     {
                         CurrentFighter.Stats.Health.ToString(CultureInfo.InvariantCulture),
                         CurrentFighter.Stats.Attack.ToString(CultureInfo.InvariantCulture),
                         CurrentFighter.Stats.Defense.ToString(CultureInfo.InvariantCulture),
                         CurrentFighter.Stats.Speed.ToString(CultureInfo.InvariantCulture)
                     }, OriginHelper.Preset.TopLeft);
-
-                    // Display Ranges
-                    RenderStringAt(Transform.Position + Vector2.Down * 4f + Vector2.Right * 8f, new[]
-                    {
-                        CurrentFighter.Race.RangeProfile.HealthRange.ToString(),
-                        CurrentFighter.Race.RangeProfile.AttackRange.ToString(),
-                        CurrentFighter.Race.RangeProfile.DefenseRange.ToString(),
-                        CurrentFighter.Race.RangeProfile.SpeedRange.ToString()
-                    }, OriginHelper.Preset.MiddleCenter);
                     break;
             }
 

@@ -25,17 +25,17 @@ namespace MonsterFightSimulator.Project
             {
                 "/",
             }
-        });        
+        });
         
         private static readonly SpriteData DataSprControls = new SpriteData(1f, OriginHelper.Preset.TopLeft, new[]
         {
             new[]
             {
-                "  ^                   ",
-                "< v >  Move Cursor    ",
-                "                      ",
-                " Enter                ",
-                " <--'  Confirm/Select "
+                "  ^                  ",
+                "< v >  Move Cursor   ",
+                "                     ",
+                "Enter                ",
+                "<--'   Confirm/Select"
             }
         });
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Engine.Core
