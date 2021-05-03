@@ -1,5 +1,4 @@
 ﻿using System;
-
 using MonsterFightSimulator.Engine.Core;
 
 namespace MonsterFightSimulator.Engine.Rendering
@@ -18,7 +17,7 @@ namespace MonsterFightSimulator.Engine.Rendering
         private RenderSurface _applicationSurface = new RenderSurface(Vector2Int.Zero);
 
         private Camera _camera;
-        
+
         private Vector2Int _windowSize;
 
         public void AssignCamera(Camera camera)
@@ -27,18 +26,17 @@ namespace MonsterFightSimulator.Engine.Rendering
             RenderSurface newApplicationSurface = new RenderSurface(_camera.Size);
             newApplicationSurface.RenderOn(Vector2Int.Zero, _applicationSurface);
             _applicationSurface = newApplicationSurface;
-
         }
 
         public void SetWindowSize(Vector2Int windowSize)
         {
             _windowSize = windowSize;
-            Console.SetWindowSize(_windowSize.X, _windowSize.Y);    
+            Console.SetWindowSize(_windowSize.X, _windowSize.Y);
         }
-        
+
         public void RenderOn(Vector2Int position, IRenderable renderable)
         {
-            _applicationSurface.RenderOn(position - (Vector2Int)_camera.Position - renderable.Origin, renderable);
+            _applicationSurface.RenderOn(position - (Vector2Int) _camera.Position - renderable.Origin, renderable);
         }
 
         public void Prepare()
@@ -51,12 +49,12 @@ namespace MonsterFightSimulator.Engine.Rendering
 
         public void Display()
         {
-            for (int i = 0; i < _applicationSurface.Texture.Length; i++) 
-            { 
-                //TODO: implement camera Size
+            for (int i = 0; i < _applicationSurface.Texture.Length; i++)
+            {
                 string line = _applicationSurface.Texture[i];
-                if (i == _applicationSurface.Texture.Length - 1) { Console.Write(line); } // Check if it's last line, if true only write without new line (fixes jittering if windowSize == cameraSize)
-                else { Console.WriteLine(line); } 
+                // Check if it's last line, if true only write without new line (fixes jittering if windowSize == cameraSize)
+                if (i == _applicationSurface.Texture.Length - 1) { Console.Write(line); } 
+                else { Console.WriteLine(line); }
             }
         }
     }

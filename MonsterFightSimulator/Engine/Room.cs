@@ -5,11 +5,10 @@ namespace MonsterFightSimulator.Engine
 {
     public class Room
     {
-        private bool _firstUpdate = true;
-        
-        private  LayerList _layerList    = new LayerList();
-
         public Game Game { get; set; }
+        private bool _firstUpdate = true;
+
+        private LayerList _layerList = new LayerList();
 
         public virtual void Setup() { }
 
@@ -18,15 +17,15 @@ namespace MonsterFightSimulator.Engine
             _layerList   = new LayerList();
             _firstUpdate = true;
         }
-        
+
         public void DestroyObject(GameObject gameObject) { _layerList.Remove(gameObject); }
 
         public void AddGameObject(int depth, GameObject gameObject)
         {
             gameObject.Game = Game;
-            
-            if (_firstUpdate) {_layerList.AddDirectly(depth, gameObject);}
-            else { _layerList.Add(depth, gameObject);}
+
+            if (_firstUpdate) { _layerList.AddDirectly(depth, gameObject); }
+            else { _layerList.Add(depth, gameObject); }
         }
 
         public T AddGameObject<T>(int depth, Vector2Int position) where T : GameObject, new()

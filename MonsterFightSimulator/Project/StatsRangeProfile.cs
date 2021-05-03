@@ -13,12 +13,12 @@ namespace MonsterFightSimulator.Project
             SpeedRange   = speedRange;
         }
 
-        public Range HealthRange { get; }
         public Range AttackRange { get; }
         public Range DefenseRange { get; }
-        public Range SpeedRange { get; }
-        
-        
+
+        public Range HealthRange { get; }
+
+
         public Range this[StatType t]
         {
             get
@@ -33,5 +33,7 @@ namespace MonsterFightSimulator.Project
                 };
             }
         }
+
+        public Range SpeedRange { get; }
     }
 }

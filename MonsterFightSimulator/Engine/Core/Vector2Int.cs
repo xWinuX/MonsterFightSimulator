@@ -27,23 +27,32 @@ namespace MonsterFightSimulator.Engine.Core
         public static Vector2Int Left => new Vector2Int(-1, 0);
 
 
-        public static Vector2Int operator -(Vector2Int a) => new Vector2Int(-a.X, -a.Y);
+        public static Vector2Int operator -(Vector2Int a) { return new Vector2Int(-a.X, -a.Y); }
 
-        public static Vector2Int operator +(Vector2Int a, Vector2Int b) => new Vector2Int(a.X + b.X, a.Y + b.Y);
-        public static Vector2Int operator -(Vector2Int a, Vector2Int b) => new Vector2Int(a.X - b.X, a.Y - b.Y);
-        public static Vector2Int operator *(Vector2Int a, Vector2Int b) => new Vector2Int(a.X * b.X, a.Y * b.Y);
-        public static Vector2Int operator /(Vector2Int a, Vector2Int b) => new Vector2Int(a.X / b.X, a.Y / b.Y);
+        public static Vector2Int operator +(Vector2Int a, Vector2Int b) { return new Vector2Int(a.X + b.X, a.Y + b.Y); }
 
-        public static Vector2Int operator +(Vector2Int a, int b) => new Vector2Int(a.X + b, a.Y + b);
-        public static Vector2Int operator -(Vector2Int a, int b) => new Vector2Int(a.X - b, a.Y - b);
-        public static Vector2Int operator *(Vector2Int a, int b) => new Vector2Int(a.X * b, a.Y * b);
-        public static Vector2Int operator /(Vector2Int a, int b) => new Vector2Int(a.X / b, a.Y / b);
-        
-        public static Vector2Int operator +(int a, Vector2Int b) => new Vector2Int(b.X + a, b.Y + a);
-        public static Vector2Int operator -(int a, Vector2Int b) => new Vector2Int(b.X - a, b.Y - a);
-        public static Vector2Int operator *(int a, Vector2Int b) => new Vector2Int(b.X * a, b.Y * a);
-        public static Vector2Int operator /(int a, Vector2Int b) => new Vector2Int(b.X / a, b.Y / a);
-        
-        public static implicit operator Vector2Int(Vector2 v) => new Vector2Int((int) MathF.Round(v.X), (int) MathF.Round(v.Y));
+        public static Vector2Int operator -(Vector2Int a, Vector2Int b) { return new Vector2Int(a.X - b.X, a.Y - b.Y); }
+
+        public static Vector2Int operator *(Vector2Int a, Vector2Int b) { return new Vector2Int(a.X * b.X, a.Y * b.Y); }
+
+        public static Vector2Int operator /(Vector2Int a, Vector2Int b) { return new Vector2Int(a.X / b.X, a.Y / b.Y); }
+
+        public static Vector2Int operator +(Vector2Int a, int b) { return new Vector2Int(a.X + b, a.Y + b); }
+
+        public static Vector2Int operator -(Vector2Int a, int b) { return new Vector2Int(a.X - b, a.Y - b); }
+
+        public static Vector2Int operator *(Vector2Int a, int b) { return new Vector2Int(a.X * b, a.Y * b); }
+
+        public static Vector2Int operator /(Vector2Int a, int b) { return new Vector2Int(a.X / b, a.Y / b); }
+
+        public static Vector2Int operator +(int a, Vector2Int b) { return new Vector2Int(b.X + a, b.Y + a); }
+
+        public static Vector2Int operator -(int a, Vector2Int b) { return new Vector2Int(b.X - a, b.Y - a); }
+
+        public static Vector2Int operator *(int a, Vector2Int b) { return new Vector2Int(b.X * a, b.Y * a); }
+
+        public static Vector2Int operator /(int a, Vector2Int b) { return new Vector2Int(b.X / a, b.Y / a); }
+
+        public static implicit operator Vector2Int(Vector2 v) { return new Vector2Int((int) MathF.Round(v.X), (int) MathF.Round(v.Y)); }
     }
 }

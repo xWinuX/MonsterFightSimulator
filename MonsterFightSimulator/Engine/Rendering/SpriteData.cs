@@ -8,27 +8,28 @@ namespace MonsterFightSimulator.Engine.Rendering
         {
             Origin = OriginHelper.CalculateOrigin(Size, preset);
         }
-        
+
         public SpriteData(float frameSpeed, OriginHelper.AxisX axisX, OriginHelper.AxisY axisY, string[][] frames) : this(frameSpeed, frames)
         {
             Origin = OriginHelper.CalculateOrigin(Size, axisX, axisY);
         }
-        
+
         public SpriteData(float frameSpeed, string[][] frames)
         {
             Frames     = frames;
             FrameSpeed = frameSpeed;
             FrameCount = frames.GetLength(0);
 
-            Size   = CalculateMaxSize();
+            Size = CalculateMaxSize();
         }
 
-        public float FrameSpeed { get; }
         public int FrameCount { get; }
         public string[][] Frames { get; }
+
+        public float FrameSpeed { get; }
         public Vector2Int Origin { get; } = Vector2Int.Zero;
         public Vector2Int Size { get; }
-        
+
         private Vector2Int CalculateMaxSize()
         {
             Vector2Int size = Vector2Int.Zero;
@@ -44,6 +45,5 @@ namespace MonsterFightSimulator.Engine.Rendering
 
             return size;
         }
-
     }
 }

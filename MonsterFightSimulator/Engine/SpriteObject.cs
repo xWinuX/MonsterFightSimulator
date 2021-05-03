@@ -7,10 +7,10 @@ namespace MonsterFightSimulator.Engine
     {
         public SpriteObject(Vector2Int position, SpriteData spriteData)
         {
-            Sprite = new Sprite(spriteData);
+            Sprite             = new Sprite(spriteData);
             Transform.Position = position;
-        }        
-        
+        }
+
         public SpriteObject(Vector2Int position, Sprite sprite)
         {
             Sprite             = sprite;

@@ -5,25 +5,14 @@ namespace MonsterFightSimulator.Engine.Rendering
 {
     public class RenderSurface : IRenderable
     {
-        public RenderSurface(Vector2Int size)
-        {
-            Resize(size);
-        }
-
-        public string[] Texture { get; private set; }
-
-        public Vector2Int Origin { get; } = Vector2Int.Zero;
+        public RenderSurface(Vector2Int size) { Resize(size); }
 
         public Vector2Int Size { get => _size; set => Resize(value); }
         private Vector2Int _size = Vector2Int.Zero;
 
-        private void Resize(Vector2Int size)
-        {
-            _size   = size;
-            Texture = new string[Size.Y];
+        public string[] Texture { get; private set; }
 
-            Clear();
-        }
+        public Vector2Int Origin { get; } = Vector2Int.Zero;
 
         public void RenderOn(Vector2Int position, IRenderable renderable)
         {
@@ -95,6 +84,14 @@ namespace MonsterFightSimulator.Engine.Rendering
 
                 Texture[y] = line.ToString();
             }
+        }
+
+        private void Resize(Vector2Int size)
+        {
+            _size   = size;
+            Texture = new string[Size.Y];
+
+            Clear();
         }
     }
 }

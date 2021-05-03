@@ -8,29 +8,28 @@ namespace MonsterFightSimulator.Project
     {
         // Persistent Across Rooms
         public static List<MonsterPrototype> MonsterPrototypes;
-        
+
         public MonsterFightGame(Vector2Int gameSize) : base(gameSize)
         {
+            /* Debug
             MonsterPrototypes = new List<MonsterPrototype>();
-            MonsterPrototypes.Add(new MonsterPrototype()
+            MonsterPrototypes.Add(new MonsterPrototype
             {
-                Name = "Test1",
-                Race =  Race.Goblin,
-                Stats = new Stats(20, 1, 1, 10)
-            });            
-            MonsterPrototypes.Add(new MonsterPrototype()
-            {
-                Name = "Test2",
-                Race =  Race.Orc,
-                Stats = new Stats(40, 3, 3, 5)
+                Name  = "Goblino",
+                Race  = Race.Goblin,
+                Stats = new Stats(20, 20, 1, 5)
             });
-            //RoomGoto<RoomTitle>();
-            RoomGoto<RoomBattle>();
-        }
-        
-        protected override void Setup()
-        {
+            MonsterPrototypes.Add(new MonsterPrototype
+            {
+                Name  = "Orcino",
+                Race  = Race.Orc,
+                Stats = new Stats(40, 3, 3, 5)
+            }); 
+            RoomGoto<RoomBattle>(); */
             
+            RoomGoto<RoomTitle>();
         }
+
+        protected override void Setup() { }
     }
 }

@@ -19,24 +19,33 @@
         public static Vector2 Right => new Vector2(1, 0);
         public static Vector2 Left => new Vector2(-1, 0);
 
-        public static Vector2 operator -(Vector2 a) => new Vector2(-a.X, -a.Y);
+        public static Vector2 operator -(Vector2 a) { return new Vector2(-a.X, -a.Y); }
 
-        public static Vector2 operator +(Vector2 a, Vector2 b) => new Vector2(a.X + b.X, a.Y + b.Y);
-        public static Vector2 operator -(Vector2 a, Vector2 b) => new Vector2(a.X - b.X, a.Y - b.Y);
-        public static Vector2 operator *(Vector2 a, Vector2 b) => new Vector2(a.X * b.X, a.Y * b.Y);
-        public static Vector2 operator /(Vector2 a, Vector2 b) => new Vector2(a.X / b.X, a.Y / b.Y);
+        public static Vector2 operator +(Vector2 a, Vector2 b) { return new Vector2(a.X + b.X, a.Y + b.Y); }
 
-        public static Vector2 operator +(Vector2 a, float b) => new Vector2(a.X + b, a.Y + b);
-        public static Vector2 operator -(Vector2 a, float b) => new Vector2(a.X - b, a.Y - b);
-        public static Vector2 operator *(Vector2 a, float b) => new Vector2(a.X * b, a.Y * b);
-        public static Vector2 operator /(Vector2 a, float b) => new Vector2(a.X / b, a.Y / b);        
-        
-        
-        public static Vector2 operator +(float a, Vector2 b) => new Vector2(b.X + a, b.Y + a);
-        public static Vector2 operator -(float a, Vector2 b) => new Vector2(b.X - a, b.Y - a);
-        public static Vector2 operator *(float a, Vector2 b) => new Vector2(b.X * a, b.Y * a);
-        public static Vector2 operator /(float a, Vector2 b) => new Vector2(b.X / a, b.Y / a);
+        public static Vector2 operator -(Vector2 a, Vector2 b) { return new Vector2(a.X - b.X, a.Y - b.Y); }
 
-        public static implicit operator Vector2(Vector2Int v) => new Vector2(v.X, v.Y);
+        public static Vector2 operator *(Vector2 a, Vector2 b) { return new Vector2(a.X * b.X, a.Y * b.Y); }
+
+        public static Vector2 operator /(Vector2 a, Vector2 b) { return new Vector2(a.X / b.X, a.Y / b.Y); }
+
+        public static Vector2 operator +(Vector2 a, float b) { return new Vector2(a.X + b, a.Y + b); }
+
+        public static Vector2 operator -(Vector2 a, float b) { return new Vector2(a.X - b, a.Y - b); }
+
+        public static Vector2 operator *(Vector2 a, float b) { return new Vector2(a.X * b, a.Y * b); }
+
+        public static Vector2 operator /(Vector2 a, float b) { return new Vector2(a.X / b, a.Y / b); }
+
+
+        public static Vector2 operator +(float a, Vector2 b) { return new Vector2(b.X + a, b.Y + a); }
+
+        public static Vector2 operator -(float a, Vector2 b) { return new Vector2(b.X - a, b.Y - a); }
+
+        public static Vector2 operator *(float a, Vector2 b) { return new Vector2(b.X * a, b.Y * a); }
+
+        public static Vector2 operator /(float a, Vector2 b) { return new Vector2(b.X / a, b.Y / a); }
+
+        public static implicit operator Vector2(Vector2Int v) { return new Vector2(v.X, v.Y); }
     }
 }

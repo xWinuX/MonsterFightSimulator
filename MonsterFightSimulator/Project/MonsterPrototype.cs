@@ -2,10 +2,9 @@
 {
     public class MonsterPrototype
     {
-        public Stats Stats { get; set; }
-
         public string Name { get; set; }
 
         public Race Race { get; set; }
+        public Stats Stats { get; set; }
     }
 }

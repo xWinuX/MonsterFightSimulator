@@ -12,11 +12,6 @@ namespace MonsterFightSimulator.Engine
 
         public override void Render() { RenderSelf(); }
 
-        protected void RenderSelf()
-        {
-            if (Sprite != null) { Game.Renderer.RenderOn(Transform.Position, Sprite); }
-        }
-
         public void RenderSpriteAt(Vector2Int position, SpriteData spriteData) { Game.Renderer.RenderOn(position, new Sprite(spriteData)); }
         public void RenderSpriteAt(Vector2Int position, Sprite sprite) { Game.Renderer.RenderOn(position, sprite); }
 
@@ -41,5 +36,10 @@ namespace MonsterFightSimulator.Engine
         }
 
         public bool InputDown(ConsoleKey key) { return Game.PressedKeys.Contains(key); }
+
+        protected void RenderSelf()
+        {
+            if (Sprite != null) { Game.Renderer.RenderOn(Transform.Position, Sprite); }
+        }
     }
 }

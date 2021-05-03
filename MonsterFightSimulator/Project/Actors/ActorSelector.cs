@@ -10,17 +10,13 @@ namespace MonsterFightSimulator.Project.Actors
 
         public bool Enabled { get; set; } = true;
 
+        public Vector2Int Limit { get => _limit; set => _limit = new Vector2Int(Math.Max(value.X, 1), Math.Max(value.Y, 1)); }
+
         public Vector2Int Position { get => _position; private set => _position = value; }
+        private Vector2Int _limit    = Vector2Int.One;
         private Vector2Int _position = Vector2Int.Zero;
 
-        public Vector2Int Limit
-        {
-            get => _limit;
-            set => _limit = new Vector2Int(Math.Max(value.X, 1), Math.Max(value.Y, 1));
-        }
-        private Vector2Int _limit = Vector2Int.One;
-
-        public void ResetPosition() => Position = Vector2Int.Zero;
+        public void ResetPosition() { Position = Vector2Int.Zero; }
 
         public override void Update()
         {
@@ -30,8 +26,8 @@ namespace MonsterFightSimulator.Project.Actors
             {
                 // Increase/Decrease with input
                 _position += new Vector2Int(
-                    Convert.ToInt32(InputDown(ConsoleKey.D)) - Convert.ToInt32(InputDown(ConsoleKey.A)),
-                    Convert.ToInt32(InputDown(ConsoleKey.S)) - Convert.ToInt32(InputDown(ConsoleKey.W))
+                    Convert.ToInt32(InputDown(ConsoleKey.RightArrow)) - Convert.ToInt32(InputDown(ConsoleKey.LeftArrow)),
+                    Convert.ToInt32(InputDown(ConsoleKey.DownArrow)) - Convert.ToInt32(InputDown(ConsoleKey.UpArrow))
                 );
             }
 
@@ -43,8 +39,8 @@ namespace MonsterFightSimulator.Project.Actors
         }
 
         public override void Render()
-        { 
-            if (Enabled) {RenderSpriteAt(Transform.Position + (Vector2)_position, Sprite);}
+        {
+            if (Enabled) { RenderSpriteAt(Transform.Position + (Vector2) _position, Sprite); }
         }
     }
 }

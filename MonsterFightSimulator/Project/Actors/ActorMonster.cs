@@ -7,14 +7,6 @@ namespace MonsterFightSimulator.Project.Actors
 {
     public class ActorMonster : Actor
     {
-        public string Name { get; }
-
-        public Race Race { get; }
-
-        public Stats Stats { get; }
-        
-        private ActorHealthBar _healthBar;
-        
         public ActorMonster(MonsterPrototype monsterPrototype)
         {
             Name  = monsterPrototype.Name;
@@ -22,7 +14,14 @@ namespace MonsterFightSimulator.Project.Actors
             Stats = monsterPrototype.Stats;
         }
 
-        private float CalculateDamage(float damage) => Math.Max(damage /*- Stats.Defense*/, 0);
+        public bool Dead { get; private set; }
+
+        public string Name { get; }
+        public Race Race { get; }
+
+        public Stats Stats { get; }
+
+        private ActorHealthBar _healthBar;
 
         public float ModifyHealth(float modify) { return modify < 0 ? TakeDamage(modify) : Heal(modify); }
 
@@ -32,35 +31,43 @@ namespace MonsterFightSimulator.Project.Actors
             Stats.Health = Math.Clamp(Stats.Health + MathF.Abs(heal), 0, Stats.HealthMax);
             return Stats.Health - previousHealth;
         }
-        
+
         public float TakeDamage(float damage)
         {
             float actualDamage = CalculateDamage(MathF.Abs(damage));
             Stats.Health = Math.Max(Stats.Health - actualDamage, 0);
+            CheckForDeath();
             return actualDamage;
         }
-        
+
+        public float Attack(ActorMonster monster) { return monster.TakeDamage(Stats.Attack); }
+
         public override void Start()
         {
             _healthBar = new ActorHealthBar(Stats.Health, Stats.HealthMax);
-            Instantiate(0, Transform.Position + (Vector2.Up * 10f), _healthBar);
+            Instantiate(0, Transform.Position + Vector2.Up * 10f, _healthBar);
         }
 
         public override void Update()
         {
             base.Update();
 
-            float ver = Convert.ToInt32(InputDown(ConsoleKey.D)) - Convert.ToInt32(InputDown(ConsoleKey.A));
-
-            ModifyHealth(ver);
-            
-            _healthBar.UpdateValues(Stats.Health);
-            _healthBar.Transform.Position = Transform.Position + (Vector2.Up * 10f);
+            UpdateHealthBar();
         }
 
-        public override void Render()
+        public override void Render() { RenderStringAt(Transform.Position, StringToTexture(Name), OriginHelper.Preset.MiddleCenter); }
+
+        private void CheckForDeath()
         {
-            RenderStringAt(Transform.Position, StringToTexture(Name), OriginHelper.Preset.MiddleCenter);
+            if (Stats.Health <= 0) { Dead = true; }
         }
+
+        private void UpdateHealthBar()
+        {
+            _healthBar.UpdateValues(Stats.Health);
+            _healthBar.Transform.Position = Transform.Position + Vector2.Up * 6f;
+        }
+
+        private float CalculateDamage(float damage) { return Math.Max(damage - Stats.Defense, 1); }
     }
 }

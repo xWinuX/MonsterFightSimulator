@@ -10,7 +10,7 @@ namespace MonsterFightSimulator.Project
         Speed,
         HealthMax
     }
-    
+
     public class Stats
     {
         public Stats(StatsRangeProfile rangeProfile)
@@ -20,8 +20,8 @@ namespace MonsterFightSimulator.Project
             Attack    = rangeProfile.AttackRange.MinValue;
             Defense   = rangeProfile.DefenseRange.MinValue;
             Speed     = rangeProfile.SpeedRange.MinValue;
-        }        
-        
+        }
+
         public Stats(float health, float attack, float defense, float speed)
         {
             HealthMax = health;
@@ -31,18 +31,22 @@ namespace MonsterFightSimulator.Project
             Speed     = speed;
         }
 
+        public float Attack { get; set; }
+        public float Defense { get; set; }
+        public float Health { get; set; }
+        public float HealthMax { get; set; }
+
         public float this[StatType t]
         {
             get
             {
                 return t switch
                 {
-                    StatType.Health => Health,
-                    StatType.Attack => Attack,
-                    StatType.Defense => Defense,
-                    StatType.Speed => Speed,
-                    StatType.HealthMax => HealthMax,
-                    _ => throw new ArgumentOutOfRangeException(nameof(t), t, null)
+                    StatType.Health    => Health,
+                    StatType.Attack    => Attack,
+                    StatType.Defense   => Defense,
+                    StatType.Speed     => Speed,
+                    StatType.HealthMax => HealthMax
                 };
             }
             set
@@ -54,16 +58,12 @@ namespace MonsterFightSimulator.Project
                     case StatType.Defense:   Defense   = value; break;
                     case StatType.Speed:     Speed     = value; break;
                     case StatType.HealthMax: HealthMax = value; break;
-                    default: throw new ArgumentOutOfRangeException(nameof(t), t, null);
-                }              
+                }
             }
         }
 
-        public float Health { get => _health; set => _health = value; }
-        private float _health = 0f;
-        public float Attack { get; set; }
-        public float Defense { get; set; }
         public float Speed { get; set; }
-        public float HealthMax { get; set; }
+
+        public void UpdateHealthMax() => HealthMax = Health;
     }
 }
