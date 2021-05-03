@@ -11,13 +11,15 @@ namespace MonsterFightSimulator.Engine.Rendering
         public Renderer(Camera camera, Vector2Int windowSize)
         {
             AssignCamera(camera);
-            SetWindowSize(windowSize);
+            _windowSize = windowSize;
+            ApplyWindowSize();
         }
 
         private RenderSurface _applicationSurface = new RenderSurface(Vector2Int.Zero);
 
         private Camera _camera;
 
+        private Vector2Int _previousConsoleSize;
         private Vector2Int _windowSize;
 
         public void AssignCamera(Camera camera)
@@ -28,10 +30,10 @@ namespace MonsterFightSimulator.Engine.Rendering
             _applicationSurface = newApplicationSurface;
         }
 
-        public void SetWindowSize(Vector2Int windowSize)
+        public void ApplyWindowSize()
         {
-            _windowSize = windowSize;
-            Console.SetWindowSize(_windowSize.X, _windowSize.Y);
+            try { Console.SetWindowSize(Math.Min(_windowSize.X, Console.LargestWindowWidth), Math.Min(_windowSize.Y, Console.LargestWindowHeight)); }
+            catch { /* Ignored, this function sometimes throws errors if the user tries to resize the window (which they shouldn't in the first place)*/ }
         }
 
         public void RenderOn(Vector2Int position, IRenderable renderable)
@@ -41,10 +43,19 @@ namespace MonsterFightSimulator.Engine.Rendering
 
         public void Prepare()
         {
+            // Check if window was resized, if true clear it
+            Vector2Int currentConsoleSize = new Vector2Int(Console.WindowWidth, Console.WindowHeight);
+            if (currentConsoleSize.X != _previousConsoleSize.X || currentConsoleSize.Y != _previousConsoleSize.Y) { Console.Clear(); }
+
+            // Prepare Cursor
             Console.CursorVisible = false;
-            Console.SetWindowSize(_windowSize.X, _windowSize.Y);
             Console.SetCursorPosition(0, 0);
+            
+            // Clear application surface 
             _applicationSurface.Clear();
+            
+            // Save 
+            _previousConsoleSize = new Vector2Int(Console.WindowWidth, Console.WindowHeight);
         }
 
         public void Display()
@@ -53,7 +64,7 @@ namespace MonsterFightSimulator.Engine.Rendering
             {
                 string line = _applicationSurface.Texture[i];
                 // Check if it's last line, if true only write without new line (fixes jittering if windowSize == cameraSize)
-                if (i == _applicationSurface.Texture.Length - 1) { Console.Write(line); } 
+                if (i == _applicationSurface.Texture.Length - 1) { Console.Write(line); }
                 else { Console.WriteLine(line); }
             }
         }
