@@ -40,12 +40,9 @@ namespace MonsterFightSimulator.Engine.Rendering
         {
             Vector2Int origin = Vector2Int.Zero;
 
-            if (axisX == AxisX.Right) { origin.X = size.X - 1; }
-
+            if (axisX == AxisX.Right)  { origin.X = size.X - 1; }
             if (axisX == AxisX.Middle) { origin.X = size.X / 2; }
-
             if (axisY == AxisY.Bottom) { origin.Y = size.Y - 1; }
-
             if (axisY == AxisY.Center) { origin.Y = size.Y / 2; }
 
             return origin;

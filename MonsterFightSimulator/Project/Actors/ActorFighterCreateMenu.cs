@@ -6,22 +6,22 @@ using System.Text;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
+using MonsterFightSimulator.Project.Classes;
 using MonsterFightSimulator.Project.Rooms;
 
 namespace MonsterFightSimulator.Project.Actors
 {
     public class ActorFighterCreateMenu : Actor
     {
+        private MonsterPrototype CurrentFighter => _fighters[_currentFighterIndex];
         private readonly List<MonsterPrototype> _fighters = new List<MonsterPrototype>();
         private readonly List<Race>             _races    = new List<Race>();
-
-        private MonsterPrototype CurrentFighter => _fighters[_currentFighterIndex];
-        private int _currentFighterIndex;
+        private          int                    _currentFighterIndex;
 
         private MenuState _currentState = MenuState.RaceSelection;
 
         private ActorSelector _selector;
-        
+
         public override void Start()
         {
             // Cache all available races
@@ -66,6 +66,8 @@ namespace MonsterFightSimulator.Project.Actors
                         break;
 
                     case MenuState.Naming:
+                        if (Game.KeyString.Length == 0) { break; }
+
                         // Give name to fighter
                         CurrentFighter.Name  = Game.KeyString;
                         
@@ -109,7 +111,7 @@ namespace MonsterFightSimulator.Project.Actors
 
                 case MenuState.StatsSelection:
                     // Position selector
-                    _selector.Transform.Position = Transform.Position + Vector2.Down * 2f + Vector2.Left * 12f;
+                    _selector.Transform.Position = Transform.Position + Vector2.Down * 2f + Vector2.Left * 13f;
                     
                     // Select and increase/decrease stats
                     StatType statType = (StatType) _selector.Position.Y;
@@ -193,6 +195,7 @@ namespace MonsterFightSimulator.Project.Actors
 
         private void DisplayFighterInfo()
         {
+            // Continuously show more of the fighter as it gets configured
             List<string[]> infoStrings = new List<string[]>();
             foreach (MonsterPrototype fighter in _fighters)
             {

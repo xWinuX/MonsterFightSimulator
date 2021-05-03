@@ -10,12 +10,11 @@ namespace MonsterFightSimulator.Project.Actors
 {
     public class ActorTextBox : Actor
     {
+        public bool AutoSize { get; set; } = true;
         public bool CurrentTextFinished => _textProgress == TextCurrentLength;
         public bool EnableBorder { get; set; } = false;
 
         public bool Finished => CurrentTextFinished && TextCurrent == Text.Count - 1;
-
-        public bool AutoSize { get; set; } = true;
 
         public Vector2Int Size
         {

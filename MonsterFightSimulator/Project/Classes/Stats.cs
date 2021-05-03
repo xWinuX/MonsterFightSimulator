@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MonsterFightSimulator.Project
+﻿namespace MonsterFightSimulator.Project.Classes
 {
     public enum StatType
     {

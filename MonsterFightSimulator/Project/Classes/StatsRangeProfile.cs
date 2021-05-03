@@ -1,7 +1,7 @@
 ﻿using System;
 using Range = MonsterFightSimulator.Engine.Core.Range;
 
-namespace MonsterFightSimulator.Project
+namespace MonsterFightSimulator.Project.Classes
 {
     public class StatsRangeProfile
     {

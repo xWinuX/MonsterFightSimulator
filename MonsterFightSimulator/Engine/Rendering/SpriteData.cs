@@ -25,7 +25,6 @@ namespace MonsterFightSimulator.Engine.Rendering
 
         public int FrameCount { get; }
         public string[][] Frames { get; }
-
         public float FrameSpeed { get; }
         public Vector2Int Origin { get; } = Vector2Int.Zero;
         public Vector2Int Size { get; }
@@ -42,7 +41,7 @@ namespace MonsterFightSimulator.Engine.Rendering
                     if (line.Length > size.X) { size.X = line.Length; }
                 }
             }
-
+            
             return size;
         }
     }

@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
+using MonsterFightSimulator.Project.Classes;
 
 namespace MonsterFightSimulator.Project.Actors
 {
+    // strongly depends on MonsterFightGame.cs
     public class ActorBattleManager : Actor
     {
         private readonly List<ActorMonster> _monsterList = new List<ActorMonster>();
-        private          List<int>          _roundQueue  = new List<int>();
+        private readonly List<int>          _roundQueue  = new List<int>();
+
+        private bool _finished;
+        private int  _round = 1;
+        private int  _roundQueuePosition;
 
         private ActorTextBox _textBox;
 
-        private bool _finished;
-        private int  _round              = 1;
-        private int  _roundQueuePosition = 0;
-        
         public override void Start()
         {
             foreach (MonsterPrototype monsterPrototype in MonsterFightGame.MonsterPrototypes)
             {
                 ActorMonster actorMonster = new ActorMonster(monsterPrototype);
                 _monsterList.Add(actorMonster);
+                
+                // Instantiate textbox
                 Instantiate(0, new Vector2(10f, Game.Camera.Size.Y / 2f - 5f), actorMonster);
                 _textBox = Instantiate<ActorTextBox>(1, Game.Camera.Size / 2 + Vector2Int.Down * 5);
             }
@@ -31,7 +35,6 @@ namespace MonsterFightSimulator.Project.Actors
             if (_monsterList.Count == 2)
             {
                 int index = 0;
-                
                 // If Monster have the same speed select a random one to start first
                 if (_monsterList[0].Stats.Speed == _monsterList[1].Stats.Speed)
                 {
@@ -41,7 +44,7 @@ namespace MonsterFightSimulator.Project.Actors
                     _textBox.AddNew("A random Monster will be chosen to attack first.");
                     _textBox.AddNew("The Monster will be " + _monsterList[index].Name);
                 }
-                else // Else evauluate which one is faster
+                else // Else evaluate which one is faster
                 {
                     index = _monsterList[0].Stats.Speed > _monsterList[1].Stats.Speed ? 0 : 1;
 
@@ -103,6 +106,7 @@ namespace MonsterFightSimulator.Project.Actors
 
         public override void Render()
         {
+            // Display rounds
             RenderStringAt(new Vector2Int(Game.Camera.Size.X/2, 1), StringToTexture("Round"), OriginHelper.Preset.MiddleCenter);
             RenderStringAt(new Vector2Int(Game.Camera.Size.X/2, 2), StringToTexture(_round.ToString()), OriginHelper.Preset.MiddleCenter);
         }

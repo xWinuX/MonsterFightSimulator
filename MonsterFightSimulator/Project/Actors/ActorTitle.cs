@@ -34,12 +34,10 @@ namespace MonsterFightSimulator.Project.Actors
         {
             base.Render();
 
-            RenderStringAt(new Vector2Int(Game.Camera.Size.X / 2, Game.Camera.Size.Y - 1), StringToTexture("By Edwin Baumann"),
-                OriginHelper.Preset.MiddleCenter);
+            RenderStringAt(new Vector2Int(Game.Camera.Size.X / 2, Game.Camera.Size.Y - 1), StringToTexture("By Edwin Baumann"), OriginHelper.Preset.MiddleCenter);
             if (_showContinue)
             {
-                RenderStringAt(_originalPosition + Vector2.Down * 10f, StringToTexture("Press Enter to continue..."),
-                    OriginHelper.Preset.MiddleCenter);
+                RenderStringAt(_originalPosition + Vector2.Down * 10f, StringToTexture("Press Enter to continue..."), OriginHelper.Preset.MiddleCenter);
             }
         }
 

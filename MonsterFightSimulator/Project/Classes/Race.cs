@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Range = MonsterFightSimulator.Engine.Core.Range;
 
-namespace MonsterFightSimulator.Project
+namespace MonsterFightSimulator.Project.Classes
 {
     public class Race
     {
@@ -18,14 +18,14 @@ namespace MonsterFightSimulator.Project
                 new Range(5, 10)
             ));
 
-            Human = new Race("Human", new StatsRangeProfile(
+            Troll = new Race("Troll", new StatsRangeProfile(
                 new Range(1, 30),
                 new Range(3, 8),
                 new Range(1, 3),
                 new Range(3, 6)
             ));
 
-            Orc = new Race("Ork", new StatsRangeProfile(
+            Orc = new Race("Orc", new StatsRangeProfile(
                 new Range(1, 50),
                 new Range(1, 4),
                 new Range(4, 8),
@@ -41,12 +41,11 @@ namespace MonsterFightSimulator.Project
         }
 
         public static Race Goblin { get; }
-        public static Race Human { get; }
+        public static Race Troll { get; }
         public static Race Orc { get; }
-        
+
         public static List<Race> List { get; }
         public string Name { get; }
-
 
         public StatsRangeProfile RangeProfile { get; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using MonsterFightSimulator.Engine.Rendering;
 
 namespace MonsterFightSimulator.Engine.Core
@@ -20,7 +21,6 @@ namespace MonsterFightSimulator.Engine.Core
         }
 
         public Camera Camera { get; }
-
         public Room CurrentRoom { get; protected set; }
         public float DeltaTime { get; private set; }
         public float ElapsedTime => (float) _elapsedTime.Elapsed.TotalMilliseconds;
@@ -90,8 +90,9 @@ namespace MonsterFightSimulator.Engine.Core
                 }
                 else if (KeyString.Length < KeyStringLimit)
                 {
-                    KeyString += keyInfo.KeyChar;
-                } // Just add the char to KeyString if it isn't over the limit
+                    // Check if char is a letter then add if true
+                    if ((int)keyInfo.KeyChar is > 64 and < 91 or > 96 and < 123) {KeyString += keyInfo.KeyChar;}
+                } 
             }
         }
 

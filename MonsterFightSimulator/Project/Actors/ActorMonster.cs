@@ -2,6 +2,7 @@
 using MonsterFightSimulator.Engine;
 using MonsterFightSimulator.Engine.Core;
 using MonsterFightSimulator.Engine.Rendering;
+using MonsterFightSimulator.Project.Classes;
 
 namespace MonsterFightSimulator.Project.Actors
 {
@@ -15,10 +16,8 @@ namespace MonsterFightSimulator.Project.Actors
         }
 
         public bool Dead { get; private set; }
-
         public string Name { get; }
         public Race Race { get; }
-
         public Stats Stats { get; }
 
         private ActorHealthBar _healthBar;
@@ -31,7 +30,7 @@ namespace MonsterFightSimulator.Project.Actors
             Stats.Health = Math.Clamp(Stats.Health + MathF.Abs(heal), 0, Stats.HealthMax);
             return Stats.Health - previousHealth;
         }
-
+        
         public float TakeDamage(float damage)
         {
             float actualDamage = CalculateDamage(MathF.Abs(damage));
