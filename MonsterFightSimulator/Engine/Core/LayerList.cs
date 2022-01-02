@@ -25,14 +25,14 @@ namespace MonsterFightSimulator.Engine.Core
 
         public void Remove(GameObject gameObject)
         {
-            foreach (KeyValuePair<int, List<GameObject>> layer in _list)
+            foreach ((int key, List<GameObject> value) in _list)
             {
-                int index = layer.Value.FindIndex(x => x.Id == gameObject.Id);
+                int index = value.FindIndex(x => x.Id == gameObject.Id);
                 if (index == -1) { continue; }
 
-                if (!_delete.ContainsKey(layer.Key)) { _delete.Add(layer.Key, new List<int>()); }
+                if (!_delete.ContainsKey(key)) { _delete.Add(key, new List<int>()); }
 
-                _delete[layer.Key].Add(index);
+                _delete[key].Add(index);
             }
         }
 
@@ -44,22 +44,22 @@ namespace MonsterFightSimulator.Engine.Core
         public void Update()
         {
             // Add all objects in the add queue
-            foreach (KeyValuePair<int, List<GameObject>> layer in _add)
+            foreach ((int key, List<GameObject> value) in _add)
             {
-                foreach (GameObject gameObject in layer.Value)
+                foreach (GameObject gameObject in value)
                 {
-                    if (!_list.ContainsKey(layer.Key)) { _list.Add(layer.Key, new List<GameObject>()); }
+                    if (!_list.ContainsKey(key)) { _list.Add(key, new List<GameObject>()); }
 
-                    _list[layer.Key].Add(gameObject);
+                    _list[key].Add(gameObject);
                 }
             }
 
             _add.Clear();
 
             // Delete all objects in delete queue
-            foreach (KeyValuePair<int, List<int>> layer in _delete)
+            foreach ((int key, List<int> value) in _delete)
             {
-                foreach (int index in layer.Value) { _list[layer.Key].RemoveAt(index); }
+                foreach (int index in value) { _list[key].RemoveAt(index); }
             }
 
             _delete.Clear();

@@ -22,7 +22,7 @@ namespace MonsterFightSimulator.Engine.Rendering
         private Vector2Int _previousConsoleSize;
         private Vector2Int _windowSize;
 
-        public void AssignCamera(Camera camera)
+        private void AssignCamera(Camera camera)
         {
             _camera = camera;
             RenderSurface newApplicationSurface = new RenderSurface(_camera.Size);
@@ -30,10 +30,10 @@ namespace MonsterFightSimulator.Engine.Rendering
             _applicationSurface = newApplicationSurface;
         }
 
-        public void ApplyWindowSize()
+        private void ApplyWindowSize()
         {
             try { Console.SetWindowSize(Math.Min(_windowSize.X, Console.LargestWindowWidth), Math.Min(_windowSize.Y, Console.LargestWindowHeight)); }
-            catch { /* Ignored, this function sometimes throws errors if the user tries to resize the window (which they shouldn't in the first place)*/ }
+            catch { /* Ignored, this function sometimes throws errors if the user tries to resize the window (which they shouldn't in the first place) */ }
         }
 
         public void RenderOn(Vector2Int position, IRenderable renderable)

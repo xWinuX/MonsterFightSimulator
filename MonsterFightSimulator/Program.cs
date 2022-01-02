@@ -8,3 +8,6 @@ namespace MonsterFightSimulator
         private static void Main() { new MonsterFightGame(new Vector2(80, 30)).Run(); }
     }
 }
+
+
+

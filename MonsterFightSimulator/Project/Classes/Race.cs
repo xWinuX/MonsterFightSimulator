@@ -49,8 +49,8 @@ namespace MonsterFightSimulator.Project.Classes
 
         public StatsRangeProfile RangeProfile { get; }
 
-        public static string[] GetNamesFromExisting() { return List.Select(race => race.Name).ToArray(); }
+        public static string[] GetNamesFromExisting() => List.Select(race => race.Name).ToArray();
 
-        public static Race GetRandomFromExisting(Random random) { return List[random.Next(0, List.Count - 1)]; }
+        public static Race GetRandomFromExisting(Random random) => List[random.Next(0, List.Count - 1)];
     }
 }

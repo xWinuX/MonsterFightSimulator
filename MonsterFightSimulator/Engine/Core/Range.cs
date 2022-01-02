@@ -13,8 +13,8 @@ namespace MonsterFightSimulator.Engine.Core
         public float MinValue { get; }
         public float MaxValue { get; }
 
-        public readonly float GetRandomBetween(Random random) { return MinValue + (MaxValue - MinValue) * (float) random.NextDouble(); }
+        public readonly float GetRandomBetween(Random random) => MinValue + (MaxValue - MinValue) * (float) random.NextDouble();
 
-        public override string ToString() { return MinValue + "-" + MaxValue; }
+        public override string ToString() => MinValue + "-" + MaxValue;
     }
 }

@@ -23,7 +23,7 @@ namespace MonsterFightSimulator.Project
         {
             new[]
             {
-                "/",
+                "/"
             }
         });        
         
